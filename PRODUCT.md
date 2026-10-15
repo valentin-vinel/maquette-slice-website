@@ -20,21 +20,21 @@ The showcase site (« site vitrine ») of **Slice — Pizzeria, Avignon**, a rea
 
 ## Positioning
 
-Generous **40 cm pizzas** with an American/NY-pizzeria menu (Original Pepperoni, Meatballs, Chicken Ranch, Ooh Honey), in a shop whose identity (badge logo, checkerboard print menus) is unmistakably its own. In the shop, a selection is also sold by the slice and toppings can be added, but **the website presents whole 40 cm pizzas only** and does not mention slices or extras (client's choice).
+Generous **40 cm pizzas** with an American/NY-pizzeria menu (Original Pepperoni, Meatballs, Chicken Ranch, Ooh Honey), in a shop whose identity (badge logo, checkerboard print menus) is unmistakably its own. In the shop, a selection is also sold by the slice and toppings can be added, but **the website presents whole 40 cm pizzas only** and does not mention slices (client's choice). The extras (toppings at 2–4 €) can be added to each pizza in the order list since 2026-10-15.
 
 The current site copy describes a Neapolitan wood-fired pizzeria in Paris; that is placeholder and contradicts the client's real materials.
 
 ## Operating Context
 
 - Service mode: **takeaway only. No dine-in, no delivery.**
-- Ordering happens by phone or at the counter; there is no online ordering or payment. The site offers an order list (« Ma commande ») the visitor builds from the menu and keeps on screen while phoning a shop; it is never sent.
+- Ordering happens by phone or at the counter; there is no online ordering or payment. The site offers an order list (« Ma commande ») the visitor builds from the menu (pizzas with optional extras) and keeps on screen while phoning a shop; it is never sent.
 - Pricing structure: whole pizza (40 cm), slice (¼ pizza; "slices are also available as whole pizzas"), extras (toppings added at 2–4 €), desserts, canned/bottled soft drinks by size (33 cl / 1,5 L).
 - Print menus are bilingual: French name/description with the English translation beneath.
 
 ## Capabilities and Constraints
 
 - Static Astro site, three pages: home (`/`), menu (`/carte`), contact (`/contact`), plus 404.
-- All business data lives in `src/data/site.ts` and `src/data/menu.ts`; pages render from it. `menu.ts` holds the real 2026 menu, whole pizzas only (40 cm), by the client's choice; slice prices and extras are not shown on the site, and the site does not mention buying by the slice (client's choice, 2026-10-15).
+- All business data lives in `src/data/site.ts` and `src/data/menu.ts`; pages render from it. `menu.ts` holds the real 2026 menu, whole pizzas only (40 cm), by the client's choice; slice prices are not shown on the site, and the site does not mention buying by the slice (client's choice, 2026-10-15). The extras are listed with their prices in a burgundy block under the pizzas (like the print menu) and added to a pizza through its « + » configurator.
 - All user-facing copy is in **French**; English menu translations exist in the source material if wanted.
 - Still unknown and must come from the client: street address, phone, email, opening hours, social links.
 - Undecided: whether the site should be bilingual.
@@ -49,7 +49,7 @@ The current site copy describes a Neapolitan wood-fired pizzeria in Paris; that 
 ## Evidence on Hand
 
 - `design-source/slice-logo.ai` — logo source (PDF-compatible Illustrator file, black). Web export: `public/logo.png` (826×756, transparent). No SVG export yet.
-- `design-source/menu-pizza-2026.pdf` — 2026 pizza menu: whole pizzas, slices, extras, with prices. The authoritative source for the menu.
+- `design-source/menu-pizza-2026.pdf` — 2026 pizza menu: whole pizzas, slices, extras, with prices. The authoritative source for the menu. The five slice-only pizzas (Champignon, Jambon, Poivron grillé, Carbo Style, Chèvre Miel) are sold whole at 4 × the slice price (client's rule, 2026-10-15).
 - `design-source/desserts-boissons-2026.pdf` — 2026 desserts and drinks poster (Cookie XL maison 3,50 €, Pizza Nutella 10 €; drinks 33 cl 2 € / 1,5 L 3,50 €).
 - **No photographs of the pizzas or the shop are in the repo yet.** Do not substitute stock imagery or AI-generated images of the food or the place.
 - **Placeholder claims in current copy that the client's materials don't support:** Neapolitan style, 48 h dough, wood-fired oven at 450 °C, Italian-sourced ingredients, "Depuis 2018 · Paris 11e". Remove or verify; do not add new claims of this kind.

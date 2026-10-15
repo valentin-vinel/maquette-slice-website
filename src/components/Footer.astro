@@ -21,7 +21,7 @@ const year = new Date().getFullYear();
                 <strong>{shop.name}</strong> · {shop.street}
               </a>
               <br />
-              <a href={telHref(shop.phone)}>{shop.phone}</a>
+              {shop.closed ? <span>Fermée temporairement</span> : <a href={telHref(shop.phone)}>{shop.phone}</a>}
             </li>
           ))
         }

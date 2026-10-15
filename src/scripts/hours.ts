@@ -62,12 +62,18 @@ export function overallStatus(weeks: Week[], now: Now) {
 
 // Remplit les éléments marqués dans la page ; sans JS, ils restent masqués.
 const now = parisNow();
-const weeks = new Map(shops.map((s) => [s.id, weekOf(s.hours)]));
+const weeks = new Map(shops.filter((s) => !s.closed).map((s) => [s.id, weekOf(s.hours)]));
+const closed = new Set(shops.filter((s) => s.closed).map((s) => s.id));
 
 document.querySelectorAll<HTMLElement>('[data-open-status]').forEach((el) => {
   const id = el.dataset.shop;
   const week = id ? weeks.get(id) : undefined;
-  const current = week ? shopStatus(week, now) : overallStatus([...weeks.values()], now);
+  const current =
+    id && closed.has(id)
+      ? { open: false, text: 'Fermée temporairement' }
+      : week
+        ? shopStatus(week, now)
+        : overallStatus([...weeks.values()], now);
   el.classList.toggle('is-open', current.open);
   const text = el.querySelector('[data-open-status-text]');
   if (text) text.textContent = current.text;

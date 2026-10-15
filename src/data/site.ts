@@ -16,6 +16,7 @@ export type Shop = {
   phone: string;
   mapsUrl: string;
   hours: Hours;
+  closed?: boolean; // fermée temporairement : ni horaires, ni appel, statut « Fermée temporairement »
 };
 
 // Horaires communs aux 3 boutiques. Si une boutique a des horaires différents,
@@ -56,8 +57,12 @@ export const shops: Shop[] = [
     phone: '04 90 00 00 03', // À COMPLÉTER : numéro d'Henri Fabre
     mapsUrl: maps('10 rue Henri Fabre'),
     hours: sharedHours,
+    closed: true, // fermée temporairement ; retirer cette ligne à la réouverture
   },
 ];
+
+// Boutiques qu'on peut appeler en ce moment (panier, statut d'ensemble).
+export const openShops = shops.filter((s) => !s.closed);
 
 export const site = {
   name: 'Slice',

@@ -27,6 +27,12 @@ export const menu: MenuSection[] = [
       { name: 'Vege', description: 'Sauce tomate, mozzarella, lamelles de courgettes, oignons rôtis', price: 14.5 },
       { name: 'Ooh Honey', description: 'Crème fraîche, mozzarella, jambon cru fumé, sauce moutarde miel, burrata', price: 16.9 },
       { name: 'Chicken Ranch', description: 'Sauce tomate, mozzarella, poulet mariné, sauce ranch', price: 15.5 },
+      // Pizzas vendues à la part sur la carte imprimée ; prix entier = prix de la part × 4 (consigne du client).
+      { name: 'Champignon', description: 'Sauce tomate, mozzarella, champignons frais', price: 11.2 },
+      { name: 'Jambon', description: 'Sauce tomate, mozzarella, jambon blanc artisanal', price: 13.2 },
+      { name: 'Poivron grillé', description: 'Sauce tomate, mozzarella, poivron grillé', price: 16 },
+      { name: 'Carbo Style', description: 'Crème fraîche, mozzarella, jambon cru fumé, parmesan, jaune d’œuf', price: 14 },
+      { name: 'Chèvre Miel', description: 'Crème fraîche, mozzarella, chèvre, miel', price: 14.8 },
     ],
   },
   {
@@ -48,6 +54,29 @@ export const menu: MenuSection[] = [
   },
 ];
 
+// Extras à ajouter sur une pizza (configurateur du panier). Ils ne sont pas une section de la carte.
+export const extras: MenuItem[] = [
+  { name: 'Poulet mariné', price: 3 },
+  { name: 'Viande hachée marinée', price: 3 },
+  { name: 'Pepperoni', price: 3 },
+  { name: 'Jambon blanc artisanal', price: 3 },
+  { name: 'Jambon cru fumé', price: 3 },
+  { name: 'Anchois', price: 3 },
+  { name: 'Chèvre', price: 3 },
+  { name: 'Gorgonzola', price: 3 },
+  { name: 'Parmesan râpé', price: 3 },
+  { name: 'Burrata', price: 4 },
+  { name: 'Mozzarella', price: 2 },
+  { name: 'Champignons frais', price: 2 },
+  { name: 'Poivron grillé mariné', price: 2 },
+  { name: 'Oignons rôtis', price: 2 },
+  { name: 'Lamelles de courgettes', price: 2 },
+  { name: 'Sauce ranch', price: 2 },
+  { name: 'Jaune d’œuf', price: 2 },
+  { name: 'Sauce moutarde miel', price: 2 },
+  { name: 'Miel piquant', price: 2 },
+];
+
 export const formatPrice = (price: number) =>
   new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(price);
 
@@ -59,6 +88,12 @@ export const splitPrice = (price: number) => {
 };
 
 export const pizzas = menu[0];
+
+// « Extras à ajouter sur chaque pizza : de 2 € à 4 € » (accueil, carte), calculé depuis les prix.
+const roundPrice = (price: number) =>
+  new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', trailingZeroDisplay: 'stripIfInteger' }).format(price);
+const extraPrices = extras.map((e) => e.price);
+export const extrasHint = `Extras à ajouter sur chaque pizza : de ${roundPrice(Math.min(...extraPrices))} à ${roundPrice(Math.max(...extraPrices))}`;
 export const startingPrice = Math.min(...pizzas.items.map((i) => i.price));
 
 // Identifiant stable d'un article pour le panier : « pizzas-original-pepperoni ».
@@ -72,11 +107,22 @@ const slug = (text: string) =>
 
 export const itemId = (sectionId: string, item: MenuItem) => `${sectionId}-${slug(item.name)}`;
 
-// Catalogue à plat pour le panier ; les boissons sont nommées « Boisson 33 cl » pour rester lisibles hors contexte.
+// Nom lisible hors de sa section (panier, boutons) : « Boisson 33 cl ».
+export const itemLabel = (sectionId: string, item: MenuItem) =>
+  sectionId === 'boissons' ? `Boisson ${item.name}` : item.name;
+
+// Catalogue à plat pour le panier, avec les noms lisibles hors contexte (itemLabel).
 export const catalog = menu.flatMap((section) =>
   section.items.map((item) => ({
     id: itemId(section.id, item),
-    label: section.id === 'boissons' ? `Boisson ${item.name}` : item.name,
+    label: itemLabel(section.id, item),
     price: item.price,
   })),
 );
+
+// Extras pour le configurateur : « extras-burrata », nom en minuscule pour le récapitulatif (« + burrata »).
+export const extraCatalog = extras.map((item) => ({
+  id: itemId('extras', item),
+  label: item.name.charAt(0).toLowerCase() + item.name.slice(1),
+  price: item.price,
+}));

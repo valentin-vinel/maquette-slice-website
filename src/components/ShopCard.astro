@@ -21,17 +21,28 @@ const Heading = headingLevel;
     {shop.street}<br />
     {shop.city}
   </p>
-  <OpenStatus shop={shop.id} tone={tone} />
-
-  <div class="shop__hours">
-    <Hours hours={shop.hours} tone={tone} />
-  </div>
+  {
+    shop.closed ? (
+      <p class="shop__closed">Fermée temporairement</p>
+    ) : (
+      <>
+        <OpenStatus shop={shop.id} tone={tone} />
+        <div class="shop__hours">
+          <Hours hours={shop.hours} tone={tone} />
+        </div>
+      </>
+    )
+  }
 
   <div class="shop__actions">
-    <a href={telHref(shop.phone)} class="btn shop__call">
-      <Icon name="phone" />
-      {shop.phone}
-    </a>
+    {
+      !shop.closed && (
+        <a href={telHref(shop.phone)} class="btn shop__call">
+          <Icon name="phone" />
+          {shop.phone}
+        </a>
+      )
+    }
     <a href={shop.mapsUrl} class="btn btn--ghost shop__map" target="_blank" rel="noopener noreferrer">
       <Icon name="pin" />
       Itinéraire
@@ -79,6 +90,18 @@ const Heading = headingLevel;
     font-size: 1.1rem;
     line-height: 1.25;
     letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .shop__closed {
+    margin: 0 0 auto;
+    padding: 0.45rem 0.9rem 0.35rem;
+    border: 2px solid currentColor;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 

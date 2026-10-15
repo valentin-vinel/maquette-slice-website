@@ -3,7 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Frame from '../components/Frame.astro';
 import Icon from '../components/Icon.astro';
 import MenuItem from '../components/MenuItem.astro';
-import { menu, itemId } from '../data/menu';
+import Extras from '../components/Extras.astro';
+import { menu, itemId, itemLabel, extrasHint } from '../data/menu';
 
 const [pizzas, ...others] = menu;
 const half = Math.ceil(pizzas.items.length / 2);
@@ -26,17 +27,21 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
       <h2 slot="title" id={`${pizzas.id}-title`}>{pizzas.title}</h2>
       <section id={pizzas.id} aria-labelledby={`${pizzas.id}-title`}>
         {pizzas.subtitle && <p class="sub">{pizzas.subtitle}</p>}
+        <p class="extras-hint">
+          <a href="#extras">{extrasHint}</a>
+        </p>
         <div class="board__grid">
           {
             columns.map((items) => (
               <div>
                 {items.map((item) => (
-                  <MenuItem item={item} id={itemId(pizzas.id, item)} />
+                  <MenuItem item={item} id={itemId(pizzas.id, item)} configurable />
                 ))}
               </div>
             ))
           }
         </div>
+        <Extras />
       </section>
     </Frame>
 
@@ -50,7 +55,7 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
                 <MenuItem
                   item={item}
                   id={itemId(section.id, item)}
-                  label={section.id === 'boissons' ? `Boisson ${item.name}` : item.name}
+                  label={itemLabel(section.id, item)}
                 />
               ))}
               {section.subtitle && <p class="pill">{section.subtitle}</p>}

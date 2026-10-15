@@ -1,0 +1,84 @@
+---
+// Bloc bordeaux des extras sous les pizzas, comme le bloc EXTRA de la carte imprimée.
+// On les ajoute sur une pizza depuis son « + » (configurateur de Cart.astro).
+import { extras, formatPrice } from '../data/menu';
+---
+
+<section class="extras" id="extras" aria-labelledby="extras-title">
+  <div class="extras__head">
+    <h3 id="extras-title">Extras</h3>
+    <p>Ajoutez des extras lors du choix de votre pizza.</p>
+  </div>
+  <ul class="extras__list">
+    {
+      extras.map((extra) => (
+        <li>
+          <span class="extras__name">{extra.name}</span>
+          <span class="extras__dots" aria-hidden="true" />
+          <span class="extras__price">{formatPrice(extra.price)}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .extras {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+    border-radius: var(--radius);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    scroll-margin-top: 9rem;
+  }
+
+  .extras__head h3 {
+    margin: 0;
+    font-size: clamp(2.4rem, 5vw, 3.5rem);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-on-primary);
+  }
+
+  .extras__head p {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    color: var(--color-on-primary-muted);
+  }
+
+  .extras__list {
+    columns: 2 15rem;
+    column-gap: clamp(2rem, 6vw, 5rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .extras__list li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    padding-block: 0.3rem;
+    break-inside: avoid;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .extras__dots {
+    flex: 1 0 0.75rem;
+    border-bottom: 2px dotted currentColor;
+    opacity: 0.5;
+  }
+
+  .extras__price {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

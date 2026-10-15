@@ -6,9 +6,10 @@ interface Props {
   item: MenuItem;
   id: string; // identifiant panier (itemId)
   label?: string; // nom lisible hors contexte, ex. « Boisson 33 cl »
+  configurable?: boolean; // pizza : le « + » ouvre le configurateur pizza + extras (Cart.astro)
 }
 
-const { item, id, label = item.name } = Astro.props;
+const { item, id, label = item.name, configurable = false } = Astro.props;
 const price = splitPrice(item.price);
 ---
 
@@ -22,11 +23,22 @@ const price = splitPrice(item.price);
     </span>
   </div>
   {item.description && <p>{item.description}</p>}
-  <span class="qty item__qty" data-cart-item={id} hidden>
-    <button type="button" class="qty__btn" data-cart-dec aria-label={`Retirer : ${label}`}><Icon name="minus" /></button>
-    <span class="qty__count" aria-hidden="true">0</span>
-    <button type="button" class="qty__btn" data-cart-inc aria-label={`Ajouter : ${label}`}><Icon name="plus" /></button>
-  </span>
+  {
+    configurable ? (
+      <span class="qty qty--pizza item__qty" data-pizza={id} hidden>
+        <span class="qty__count" aria-hidden="true">0</span>
+        <button type="button" class="qty__btn" data-config-open aria-label={`Ajouter : ${label}`}>
+          <Icon name="plus" />
+        </button>
+      </span>
+    ) : (
+      <span class="qty item__qty" data-cart-item={id} hidden>
+        <button type="button" class="qty__btn" data-cart-dec aria-label={`Retirer : ${label}`}><Icon name="minus" /></button>
+        <span class="qty__count" aria-hidden="true">0</span>
+        <button type="button" class="qty__btn" data-cart-inc aria-label={`Ajouter : ${label}`}><Icon name="plus" /></button>
+      </span>
+    )
+  }
   {
     item.tags && (
       <ul class="item__tags">

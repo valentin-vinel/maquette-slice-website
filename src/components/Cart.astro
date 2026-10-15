@@ -1,9 +1,11 @@
 ---
 // Bouton flottant « Ma commande » + fenêtre de la commande, présents sur toutes les pages.
 // La commande n'est pas envoyée : le visiteur appelle une boutique avec sa liste sous les yeux.
+// Le configurateur (pizza + extras) s'ouvre depuis le « + » ou « Ajouter des extras » d'une pizza.
 import Icon from './Icon.astro';
 import OpenStatus from './OpenStatus.astro';
-import { shops, telHref } from '../data/site';
+import { openShops, telHref } from '../data/site';
+import { extraCatalog, formatPrice } from '../data/menu';
 ---
 
 <button class="fab" type="button" data-cart-open hidden>
@@ -43,7 +45,7 @@ import { shops, telHref } from '../data/site';
       </p>
       <ul class="cart__shops">
         {
-          shops.map((shop) => (
+          openShops.map((shop) => (
             <li>
               <a href={telHref(shop.phone)} class="cart__shop">
                 <Icon name="phone" />
@@ -58,6 +60,69 @@ import { shops, telHref } from '../data/site';
     </section>
 
     <p class="visually-hidden" aria-live="polite" data-cart-live></p>
+  </div>
+</dialog>
+
+<dialog class="cart config" data-config-dialog aria-labelledby="config-title">
+  <div class="cart__inner">
+    <header class="cart__head">
+      <h2 id="config-title" tabindex="-1" autofocus>Votre pizza</h2>
+      <button class="cart__close" type="button" data-config-close aria-label="Fermer sans ajouter">
+        <Icon name="close" />
+      </button>
+    </header>
+
+    <div class="config__pizza">
+      <div class="config__pizza-head">
+        <p class="config__name" data-config-name></p>
+        <p class="config__base-price" data-config-base-price></p>
+      </div>
+      <p class="config__desc" data-config-desc></p>
+      <div class="config__qty-row">
+        <span id="config-qty-label">Quantité</span>
+        <span class="qty qty--line" data-config-qty role="group" aria-labelledby="config-qty-label">
+          <button type="button" class="qty__btn" data-cart-dec aria-label="Une pizza de moins"><Icon name="minus" /></button>
+          <span class="qty__count" data-config-qty-count>1</span>
+          <button type="button" class="qty__btn" data-cart-inc aria-label="Une pizza de plus"><Icon name="plus" /></button>
+        </span>
+      </div>
+    </div>
+
+    <section aria-labelledby="config-extras-title">
+      <h3 class="config__title" id="config-extras-title">Extras</h3>
+      <p class="cart__note">Facultatif : choisissez ce que vous voulez ajouter sur la pizza.</p>
+      <ul class="config__extras">
+        {
+          extraCatalog.map((extra) => (
+            <li class="config__extra" data-extra={extra.id}>
+              <span class="config__extra-name">{extra.label}</span>
+              <span class="config__extra-price">+ {formatPrice(extra.price)}</span>
+              <span class="qty">
+                <button type="button" class="qty__btn" data-cart-dec aria-label={`Retirer l’extra : ${extra.label}`}>
+                  <Icon name="minus" />
+                </button>
+                <span class="qty__count" aria-hidden="true">0</span>
+                <button type="button" class="qty__btn" data-cart-inc aria-label={`Ajouter l’extra : ${extra.label}`}>
+                  <Icon name="plus" />
+                </button>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <footer class="config__foot">
+      <h3 class="visually-hidden">Récapitulatif</h3>
+      <p class="config__recap">
+        <strong data-config-recap-name></strong>
+        <span data-config-recap-extras></span>
+      </p>
+      <button type="button" class="btn config__confirm" data-config-confirm>
+        Ajouter à ma commande
+        <span class="config__total" data-config-total></span>
+      </button>
+    </footer>
   </div>
 </dialog>
 
@@ -239,6 +304,17 @@ import { shops, telHref } from '../data/site';
     text-transform: uppercase;
   }
 
+  .cart__list :global(.cart__extras) {
+    display: block;
+    margin-top: 0.2rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    color: var(--color-muted);
+  }
+
   .cart__list :global(.cart__price) {
     font-family: var(--font-display);
     font-weight: 800;
@@ -347,6 +423,148 @@ import { shops, telHref } from '../data/site';
 
   .cart__shops :global(.status) {
     padding-left: 0.25rem;
+  }
+
+  /* Configurateur : même panneau que la commande, avec le récapitulatif collé en bas. */
+  .config .cart__inner {
+    padding-bottom: 0;
+  }
+
+  .config__pizza {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .config__pizza-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .config__name,
+  .config__base-price {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.5rem;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  .config__base-price {
+    color: var(--color-primary);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .config__desc {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .config__qty-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.25rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .config .qty__btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+    background: transparent;
+    color: var(--color-primary);
+  }
+
+  .config__title {
+    margin: 0 0 0.3rem;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  .config__extras {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .config__extra {
+    display: grid;
+    grid-template-columns: 1fr auto 5.6rem;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3rem;
+    padding-block: 0.35rem;
+    border-bottom: 2px dotted rgb(28 28 26 / 0.25);
+  }
+
+  .config__extra-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+
+  .config__extra-price {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-primary);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .config__extra .qty {
+    justify-self: end;
+  }
+
+  .config__foot {
+    position: sticky;
+    bottom: 0;
+    display: grid;
+    gap: 0.75rem;
+    margin: auto calc(-1 * clamp(1.25rem, 4vw, 2rem)) 0;
+    padding: 1rem clamp(1.25rem, 4vw, 2rem) max(1.25rem, env(safe-area-inset-bottom));
+    border-top: 2px solid var(--color-primary);
+    background: var(--color-bg);
+  }
+
+  .config__recap {
+    margin: 0;
+    line-height: 1.35;
+  }
+
+  .config__recap strong {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+  }
+
+  .config__recap span {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+  }
+
+  .config__confirm {
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .config__total {
+    font-variant-numeric: tabular-nums;
   }
 
   @media (max-width: 640px) {

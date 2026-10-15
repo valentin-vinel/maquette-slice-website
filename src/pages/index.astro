@@ -8,9 +8,10 @@ import ReviewMarquee from '../components/ReviewMarquee.astro';
 import About from '../components/About.astro';
 import MenuItem from '../components/MenuItem.astro';
 import Media from '../components/Media.astro';
+import Extras from '../components/Extras.astro';
 import { shops } from '../data/site';
 import { reviews, profiles, overallRating, countLabel, roundedCount } from '../data/reviews';
-import { pizzas, startingPrice, itemId } from '../data/menu';
+import { pizzas, startingPrice, itemId, extrasHint } from '../data/menu';
 import { heroMedia, gallery } from '../data/media';
 
 const fromPrice = new Intl.NumberFormat('fr-FR', {
@@ -71,17 +72,21 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
       <Frame>
         <h2 slot="title" id="carte-title">Pizza</h2>
         <p class="carte__sub">{pizzas.subtitle}</p>
+        <p class="extras-hint">
+          <a href="#extras">{extrasHint}</a>
+        </p>
         <div class="carte__grid">
           {
             columns.map((items) => (
               <div>
                 {items.map((item) => (
-                  <MenuItem item={item} id={itemId(pizzas.id, item)} />
+                  <MenuItem item={item} id={itemId(pizzas.id, item)} configurable />
                 ))}
               </div>
             ))
           }
         </div>
+        <Extras />
       </Frame>
 
       <p class="carte__more">
