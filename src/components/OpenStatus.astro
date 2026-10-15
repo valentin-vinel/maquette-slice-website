@@ -1,0 +1,96 @@
+---
+// Statut « ouvert / fermé » calculé dans le navigateur (heure de Paris). Masqué sans JS.
+// Avec `shop` : statut de cette boutique ; sans : statut d'ensemble des boutiques.
+interface Props {
+  tone?: 'light' | 'dark';
+  shop?: string;
+  compact?: boolean;
+}
+
+const { tone = 'light', shop, compact = false } = Astro.props;
+---
+
+<p class:list={['status', `status--${tone}`, { 'status--compact': compact }]} data-open-status data-shop={shop} hidden>
+  <span class="status__dot" aria-hidden="true"></span>
+  <span data-open-status-text></span>
+</p>
+
+<script>
+  import '../scripts/hours';
+</script>
+
+<style>
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0.45rem 0.9rem 0.35rem;
+    border: 2px solid currentColor;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text);
+  }
+
+  .status--dark {
+    color: var(--color-on-primary);
+  }
+
+  /* Variante sans contour, pour une ligne de texte (bandeau). */
+  .status--compact {
+    padding: 0;
+    border: 0;
+    font-size: 0.8em;
+    opacity: 0.9;
+  }
+
+  .status[hidden] {
+    display: none;
+  }
+
+  .status__dot {
+    position: relative;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.45;
+    transform: translateY(-1px);
+  }
+
+  .status.is-open {
+    color: var(--color-primary);
+  }
+
+  .status--dark.is-open {
+    color: var(--color-on-primary);
+  }
+
+  .status.is-open .status__dot {
+    opacity: 1;
+  }
+
+  .status.is-open .status__dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: currentColor;
+    animation: ping 2.4s var(--ease-out) infinite;
+  }
+
+  @keyframes ping {
+    from {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    to {
+      transform: scale(2.8);
+      opacity: 0;
+    }
+  }
+</style>

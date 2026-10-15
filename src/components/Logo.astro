@@ -1,0 +1,49 @@
+---
+// Logo du client (design-source/slice-logo.ai → public/logo.png, 826×756).
+// tone="light" : encre d'origine ; les autres teintes passent par un masque CSS.
+interface Props {
+  tone?: 'ink' | 'cream' | 'primary';
+  class?: string;
+  eager?: boolean;
+}
+
+const { tone = 'ink', class: className, eager = false } = Astro.props;
+const alt = 'Slice — Pizzeria, Avignon';
+---
+
+{
+  tone === 'ink' ? (
+    <img
+      class:list={['logo', className]}
+      src="/logo.png"
+      width="826"
+      height="756"
+      alt={alt}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
+    />
+  ) : (
+    <span class:list={['logo', 'logo--mask', `logo--${tone}`, className]} role="img" aria-label={alt} />
+  )
+}
+
+<style>
+  .logo {
+    width: 100%;
+    height: auto;
+  }
+
+  .logo--mask {
+    display: block;
+    aspect-ratio: 826 / 756;
+    mask: url('/logo.png') center / contain no-repeat;
+  }
+
+  .logo--cream {
+    background: var(--color-on-primary);
+  }
+
+  .logo--primary {
+    background: var(--color-primary);
+  }
+</style>

@@ -1,0 +1,31 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# Fichiers sources du client (logo .ai, PDF des cartes, photos d'origine) : lourds (~70 Mo), non publiés
+design-source/
+
+# Impeccable : captures de revue et cache locaux
+.impeccable/review/
+.impeccable/hook.cache.json

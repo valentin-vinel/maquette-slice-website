@@ -1,0 +1,144 @@
+---
+// Section « L'histoire de Slice » : photo du fondateur, quelques lignes, signature manuscrite.
+// L'écriture manuscrite reprend celle des apartés des cartes imprimées ; elle n'est utilisée qu'ici.
+import '@fontsource-variable/caveat';
+import Media from './Media.astro';
+import { about } from '../data/about';
+---
+
+<section class="section about" aria-labelledby="about-title">
+  <div class="container about__grid">
+    <Media media={about.photo} class="about__photo" />
+
+    <div class="about__text">
+      <h2 id="about-title">{about.title}</h2>
+
+      {
+        about.paragraphs.length > 0 ? (
+          about.paragraphs.map((p) => <p class="about__p">{p}</p>)
+        ) : (
+          <div class="placeholder">
+            <span class="placeholder__tag">Texte à fournir</span>
+            <p>
+              3 à 4 phrases, au ton direct de la boutique : pourquoi Slice, depuis quand, et ce qui compte pour le
+              fondateur (les pizzas, les clients, Avignon, l’ouverture des 3 boutiques…).
+            </p>
+            <p class="placeholder__specs">Écrit à la première personne ou au « on » · pas de chiffres non vérifiés</p>
+          </div>
+        )
+      }
+
+      <p class:list={['about__signature', { 'about__signature--todo': !about.founder }]}>
+        <span class="about__name">{about.founder ?? 'Prénom du fondateur'}</span>
+        <span class="about__role">{about.role}</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* La section précédente (la carte) porte déjà l'espace au-dessus. */
+  .about {
+    padding-top: clamp(1rem, 3vw, 2rem);
+  }
+
+  .about__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+
+  .about :global(.about__photo) {
+    aspect-ratio: 4 / 5;
+    max-width: 440px;
+    width: 100%;
+    justify-self: center;
+  }
+
+  .about__text h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  .about__p {
+    max-width: 52ch;
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .placeholder {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 52ch;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border: 2px dashed var(--color-primary);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+  }
+
+  .placeholder p {
+    margin: 0;
+  }
+
+  .placeholder__tag {
+    justify-self: start;
+    padding: 0.3rem 0.7rem 0.2rem;
+    border-radius: var(--radius);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .placeholder__specs {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  .about__signature {
+    display: grid;
+    justify-items: start;
+    margin: 1.5rem 0 0;
+  }
+
+  .about__name {
+    font-family: 'Caveat Variable', cursive;
+    font-weight: 600;
+    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    line-height: 1;
+    color: var(--color-primary);
+  }
+
+  .about__role {
+    margin-top: 0.2rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  /* Signature provisoire : visible pour montrer le rendu, mais marquée comme à remplacer. */
+  .about__signature--todo .about__name {
+    opacity: 0.55;
+    text-decoration: underline dashed 2px;
+    text-underline-offset: 0.2em;
+  }
+
+  @media (max-width: 860px) {
+    .about__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .about :global(.about__photo) {
+      max-width: 360px;
+    }
+  }
+</style>

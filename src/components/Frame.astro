@@ -1,0 +1,114 @@
+---
+// Cadre en damier des cartes imprimées, ouvert en haut comme sur l'original.
+// Avec un slot « title », le titre se pose dans l'ouverture, sur la ligne du cadre.
+// `closed` : cadre fermé sur les quatre côtés (sans ouverture).
+interface Props {
+  class?: string;
+  closed?: boolean;
+}
+
+const { class: className, closed = false } = Astro.props;
+const titled = Astro.slots.has('title');
+---
+
+<div class:list={['frame', { 'frame--titled': titled, 'frame--closed': closed }, className]}>
+  {
+    titled && (
+      <div class="frame__title">
+        <slot name="title" />
+      </div>
+    )
+  }
+  <slot />
+</div>
+
+<style>
+  .frame {
+    --frame-w: calc(var(--check) * 3);
+    position: relative;
+    container-type: inline-size;
+    padding: calc(var(--frame-w) + clamp(1.5rem, 4vw, 3.5rem));
+  }
+
+  .frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: var(--frame-w);
+    background: var(--checker);
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+    pointer-events: none;
+  }
+
+  /* L'ouverture en haut, comme sur les cartes. */
+  .frame:not(.frame--titled, .frame--closed)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 16%;
+    right: 16%;
+    height: var(--frame-w);
+    background: var(--color-bg);
+    pointer-events: none;
+  }
+
+  /* Le titre occupe l'ouverture : son fond crème interrompt le damier. */
+  .frame--titled {
+    margin-top: 2.2rem;
+    padding-top: calc(var(--frame-w) + 2.75rem);
+  }
+
+  .frame__title {
+    position: absolute;
+    z-index: 1;
+    top: calc(var(--frame-w) / 2);
+    left: 50%;
+    translate: -50% -50%;
+    max-width: calc(100% - 4 * var(--frame-w));
+    padding: 0.6rem clamp(1rem, 3vw, 2.25rem);
+    background: var(--color-bg);
+    text-align: center;
+  }
+
+  .frame__title :global(h1),
+  .frame__title :global(h2) {
+    margin: 0;
+    font-size: clamp(2.4rem, 8cqi, 5rem);
+    letter-spacing: 0.14em;
+    margin-right: -0.14em;
+    line-height: 0.85;
+    white-space: nowrap;
+    translate: 0 0.06em;
+  }
+
+  @media (max-width: 640px) {
+    .frame {
+      --frame-w: calc(var(--check) * 2);
+      padding: calc(var(--frame-w) + 1.25rem);
+    }
+
+    .frame:not(.frame--titled, .frame--closed)::after {
+      left: 22%;
+      right: 22%;
+    }
+
+    .frame--titled {
+      margin-top: 1.5rem;
+      padding-top: calc(var(--frame-w) + 2rem);
+    }
+
+    /* Sur mobile, l'ouverture s'élargit (damier d'angle raccourci) plutôt que de rapetisser le titre. */
+    .frame__title {
+      max-width: calc(100% - 2 * var(--frame-w) - 1.5rem);
+      padding-inline: 0.75rem;
+    }
+
+    .frame__title :global(h1),
+    .frame__title :global(h2) {
+      letter-spacing: 0.1em;
+      margin-right: -0.1em;
+    }
+  }
+</style>

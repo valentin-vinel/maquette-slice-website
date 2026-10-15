@@ -1,0 +1,275 @@
+/* Couleurs relevées sur les cartes imprimées 2026 (design-source/). */
+:root {
+  --color-bg: #f6f1de;
+  --color-surface: #efe7cc;
+  --color-text: #1c1c1a;
+  --color-muted: #4d4741;
+  --color-primary: #8a2430;
+  --color-primary-dark: #6c1a24;
+  --color-on-primary: #f6f1de;
+  --color-on-primary-muted: #ecd2cc;
+  --color-border: #ddd2b2;
+
+  --font-display: 'League Spartan Variable', 'Futura', 'Century Gothic', sans-serif;
+  --font-body: 'Jost Variable', 'Futura', 'Century Gothic', sans-serif;
+
+  --radius: 6px;
+  --radius-sm: 3px;
+  --container: 1180px;
+  --shadow: 0 18px 40px -22px rgb(60 14 20 / 0.45);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Damier de la carte : carreaux de 10 px, ajustés au bord par background-repeat: round. */
+  --check: 10px;
+  --checker: conic-gradient(
+      var(--color-primary) 25%,
+      var(--color-bg) 0 50%,
+      var(--color-primary) 0 75%,
+      var(--color-bg) 0
+    )
+    0 0 / calc(var(--check) * 2) calc(var(--check) * 2) round;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: var(--color-primary) var(--color-surface);
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.95;
+  margin: 0 0 0.4em;
+  text-wrap: balance;
+}
+
+h1,
+h2 {
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+h1 {
+  font-size: clamp(2.6rem, 5.6vw, 5.25rem);
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  font-size: clamp(2.2rem, 4.5vw, 3.75rem);
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  width: min(100% - 2rem, var(--container));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: clamp(4rem, 9vw, 7rem);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding: 0.8rem 1.5rem 0.7rem;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.25s var(--ease-out),
+    border-color 0.25s var(--ease-out),
+    transform 0.25s var(--ease-out);
+}
+
+.btn:hover {
+  background: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.btn--ghost:hover {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.btn svg {
+  width: 1.1em;
+  height: 1.1em;
+  flex: none;
+}
+
+.link-arrow {
+  display: inline;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.link-arrow svg {
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  margin-left: 0.35rem;
+  vertical-align: -0.2em;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.link-arrow:hover {
+  text-decoration: underline;
+}
+
+.link-arrow:hover svg {
+  transform: translateX(4px);
+}
+
+/* Compteur + / − du panier (carte, accueil, commande). Masqué tant que le JS n'est pas chargé. */
+.qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.qty[hidden] {
+  display: none;
+}
+
+.qty__btn {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-primary);
+  font-family: var(--font-display);
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--ease-out),
+    color 0.2s var(--ease-out);
+}
+
+.qty__btn svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.qty__btn:hover {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+.qty__count {
+  min-width: 1.3rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Sur la carte, tant que l'article n'est pas dans la commande : un seul bouton « + » plein. */
+.qty:not(.has-items, .qty--line) [data-cart-dec],
+.qty:not(.has-items, .qty--line) .qty__count {
+  display: none;
+}
+
+.qty:not(.has-items, .qty--line) [data-cart-inc] {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .btn {
+    padding-inline: 1rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

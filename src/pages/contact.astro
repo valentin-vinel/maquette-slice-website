@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Frame from '../components/Frame.astro';
+import ShopCard from '../components/ShopCard.astro';
+import OpenStatus from '../components/OpenStatus.astro';
+import { shops, site } from '../data/site';
+---
+
+<Layout
+  title="Nos boutiques"
+  description={`Adresses, horaires et téléphones des ${shops.length} boutiques ${site.name} dans le centre-ville d’Avignon.`}
+>
+  <section class="section">
+    <div class="container">
+      <div class="head">
+        <h1>Un coup de fil suffit</h1>
+        <p class="lead">
+          {shops.length} boutiques dans le centre-ville d’Avignon. Pour commander à emporter, appelez celle de votre choix.
+        </p>
+        <OpenStatus />
+      </div>
+
+      <Frame class="shops">
+        <h2 slot="title" id="boutiques">Boutiques</h2>
+        <div class="shops__grid">
+          {shops.map((shop) => <ShopCard shop={shop} />)}
+        </div>
+      </Frame>
+
+      <p class="mail">
+        Une autre question ? Écrivez-nous : <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .head {
+    display: grid;
+    justify-items: start;
+    gap: 1rem;
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .head h1 {
+    margin: 0;
+  }
+
+  .lead {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 1.2rem;
+  }
+
+  #boutiques {
+    scroll-margin-top: 8rem;
+  }
+
+  .shops__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .mail {
+    margin: clamp(2rem, 4vw, 3rem) 0 0;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .mail a {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+</style>

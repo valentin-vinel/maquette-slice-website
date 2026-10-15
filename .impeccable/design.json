@@ -1,0 +1,363 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-15T13:51:49+00:00",
+  "title": "Design System: Slice",
+  "extensions": {
+    "colorMeta": {
+      "cream-stock": {
+        "role": "neutral",
+        "displayName": "Cream Stock",
+        "canonical": "#f6f1de",
+        "tonalRamp": [
+          "#0f0b01",
+          "#292517",
+          "#464233",
+          "#666151",
+          "#878271",
+          "#aaa593",
+          "#cec9b7",
+          "#f4efdc"
+        ]
+      },
+      "cream-shade": {
+        "role": "neutral",
+        "displayName": "Cream Shade",
+        "canonical": "#efe7cc",
+        "tonalRamp": [
+          "#100b00",
+          "#2b250f",
+          "#49422b",
+          "#68614a",
+          "#8a826a",
+          "#ada58b",
+          "#d1c9af",
+          "#f7efd3"
+        ]
+      },
+      "menu-ink": {
+        "role": "neutral",
+        "displayName": "Menu Ink",
+        "canonical": "#1c1c1a",
+        "tonalRamp": [
+          "#0b0b09",
+          "#252523",
+          "#424240",
+          "#61615f",
+          "#828280",
+          "#a5a5a2",
+          "#c9c9c6",
+          "#efefec"
+        ]
+      },
+      "warm-graphite": {
+        "role": "neutral",
+        "displayName": "Warm Graphite",
+        "canonical": "#4d4741",
+        "tonalRamp": [
+          "#0f0a06",
+          "#29241f",
+          "#47413b",
+          "#66605a",
+          "#88817a",
+          "#aba49d",
+          "#cfc8c1",
+          "#f4ede6"
+        ]
+      },
+      "burgundy-ink": {
+        "role": "primary",
+        "displayName": "Burgundy Ink",
+        "canonical": "#8a2430",
+        "tonalRamp": [
+          "#1e0003",
+          "#4c000f",
+          "#7a1224",
+          "#a03942",
+          "#c75c62",
+          "#ee7f83",
+          "#feb2b2",
+          "#fee9e8"
+        ]
+      },
+      "burgundy-deep": {
+        "role": "primary",
+        "displayName": "Burgundy Deep",
+        "canonical": "#6c1a24",
+        "tonalRamp": [
+          "#1e0003",
+          "#4c000f",
+          "#732029",
+          "#974247",
+          "#bd6467",
+          "#e48689",
+          "#feb2b3",
+          "#fee9e8"
+        ]
+      },
+      "on-burgundy": {
+        "role": "neutral",
+        "displayName": "On-Burgundy Cream",
+        "canonical": "#f6f1de",
+        "tonalRamp": [
+          "#0f0b01",
+          "#292517",
+          "#464233",
+          "#666151",
+          "#878271",
+          "#aaa593",
+          "#cec9b7",
+          "#f4efdc"
+        ]
+      },
+      "on-burgundy-muted": {
+        "role": "neutral",
+        "displayName": "On-Burgundy Muted",
+        "canonical": "#ecd2cc",
+        "tonalRamp": [
+          "#160604",
+          "#32201b",
+          "#513c38",
+          "#715b56",
+          "#947c77",
+          "#b79f99",
+          "#dcc3bd",
+          "#fee9e4"
+        ]
+      },
+      "kraft-rule": {
+        "role": "neutral",
+        "displayName": "Kraft Rule",
+        "canonical": "#ddd2b2",
+        "tonalRamp": [
+          "#100a00",
+          "#2d2408",
+          "#4b4126",
+          "#6a6144",
+          "#8c8264",
+          "#afa586",
+          "#d4c9a9",
+          "#f9eecd"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page H1, uppercase burgundy."
+      },
+      "frame-title": {
+        "displayName": "Frame Title",
+        "purpose": "Section name set in the checkerboard frame opening; 2.4rem floor, never wraps."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section H2 outside a frame."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Menu item names in menu-ink caps."
+      },
+      "price": {
+        "displayName": "Price",
+        "purpose": "Euro units of menu prices; cents at 0.95rem."
+      },
+      "subline": {
+        "displayName": "Subline",
+        "purpose": "Wide-tracked format line under a frame title."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text in Jost."
+      },
+      "description": {
+        "displayName": "Description",
+        "purpose": "Ingredient lines under menu items, uppercase, warm graphite."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Buttons, nav, status, band text, day names."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Single easing for all state transitions (0.25s) and entrance motion."
+      },
+      {
+        "name": "state-transition",
+        "value": "0.25s",
+        "purpose": "Button, nav and chip colour/border changes."
+      },
+      {
+        "name": "logo-pose",
+        "value": "1.1s rotate(-16deg) scale(0.9) to rest",
+        "purpose": "Hero badge settles on load; header badge tilts -6deg on hover."
+      },
+      {
+        "name": "status-ping",
+        "value": "2.4s infinite scale(1 to 2.8)",
+        "purpose": "Open-now dot pulse, only while open."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "btn-compact",
+        "value": "420px"
+      },
+      {
+        "name": "hours-stack",
+        "value": "480px"
+      },
+      {
+        "name": "frame-mobile",
+        "value": "640px"
+      },
+      {
+        "name": "nav-toggle",
+        "value": "760px"
+      },
+      {
+        "name": "single-column",
+        "value": "860px"
+      }
+    ],
+    "checker": {
+      "value": "conic-gradient(var(--color-primary) 25%, var(--color-bg) 0 50%, var(--color-primary) 0 75%, var(--color-bg) 0) 0 0 / calc(var(--check) * 2) calc(var(--check) * 2) round",
+      "purpose": "Burgundy/cream checkerboard on a 10px check; frame width 3 checks desktop, 2 checks at 640px and below."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled burgundy call action; the default primary on every page.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 16.4v3a2 2 0 0 1-2.2 2 19.6 19.6 0 0 1-8.5-3 19.3 19.3 0 0 1-6-6 19.6 19.6 0 0 1-3-8.6A2 2 0 0 1 3.3 1.6h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7.3 9.4a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z\"/></svg>Appeler · 04 90 00 00 00</a>",
+      "css": ".ds-btn-primary { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; min-height: 3.25rem; padding: 0.8rem 1.5rem 0.7rem; border-radius: 10px; border: 2px solid var(--color-primary); transition: background-color 0.25s var(--ease-out), border-color 0.25s var(--ease-out), color 0.25s var(--ease-out), transform 0.25s var(--ease-out); background: var(--color-primary); color: var(--color-on-primary); } .ds-btn-primary:hover { background: var(--color-primary-dark); border-color: var(--color-primary-dark); } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; } .ds-btn-primary svg { width: 1.1em; height: 1.1em; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Burgundy outline on cream for secondary actions such as directions.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M19.5 10c0 5.6-7.5 11.5-7.5 11.5S4.5 15.6 4.5 10a7.5 7.5 0 0 1 15 0Z\"/><circle cx=\"12\" cy=\"10\" r=\"2.6\"/></svg>Itinéraire</a>",
+      "css": ".ds-btn-ghost { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; min-height: 3.25rem; padding: 0.8rem 1.5rem 0.7rem; border-radius: 10px; border: 2px solid var(--color-primary); transition: background-color 0.25s var(--ease-out), border-color 0.25s var(--ease-out), color 0.25s var(--ease-out), transform 0.25s var(--ease-out); background: transparent; color: var(--color-primary); } .ds-btn-ghost:hover { background: var(--color-primary); color: var(--color-on-primary); } .ds-btn-ghost:active { transform: translateY(1px); } .ds-btn-ghost:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; } .ds-btn-ghost svg { width: 1.1em; height: 1.1em; }"
+    },
+    {
+      "name": "Cream Button",
+      "kind": "button",
+      "refersTo": "button-cream",
+      "description": "Inverted primary for use on the burgundy field.",
+      "html": "<div class=\"ds-field\"><a class=\"ds-btn-cream\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 16.4v3a2 2 0 0 1-2.2 2 19.6 19.6 0 0 1-8.5-3 19.3 19.3 0 0 1-6-6 19.6 19.6 0 0 1-3-8.6A2 2 0 0 1 3.3 1.6h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7.3 9.4a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z\"/></svg>04 90 00 00 00</a></div>",
+      "css": ".ds-field { background: var(--color-primary); padding: 2rem; } .ds-btn-cream { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; min-height: 3.25rem; padding: 0.8rem 1.5rem 0.7rem; border-radius: 10px; border: 2px solid var(--color-primary); transition: background-color 0.25s var(--ease-out), border-color 0.25s var(--ease-out), color 0.25s var(--ease-out), transform 0.25s var(--ease-out); background: var(--color-on-primary); border-color: var(--color-on-primary); color: var(--color-primary); } .ds-btn-cream:hover { background: #fff; border-color: #fff; } .ds-btn-cream:focus-visible { outline: 3px solid var(--color-on-primary); outline-offset: 3px; } .ds-btn-cream svg { width: 1.1em; height: 1.1em; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "",
+      "description": "Sticky cream bar over a 2px burgundy rule; caps links, current page underlined in burgundy, compact call button.",
+      "html": "<nav class=\"ds-nav\"><ul><li><a href=\"#\" aria-current=\"page\">Accueil</a></li><li><a href=\"#\">La carte</a></li><li><a href=\"#\">Contact</a></li></ul><a class=\"ds-nav-cta\" href=\"#\">Appeler</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: flex-end; gap: 2.25rem; padding: 1rem 1.5rem; background: var(--color-bg); border-bottom: 2px solid var(--color-primary); } .ds-nav ul { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; } .ds-nav ul a { font-family: var(--font-display); font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: var(--color-text); padding-block: 0.4rem 0.25rem; border-bottom: 3px solid transparent; transition: border-color 0.25s var(--ease-out), color 0.25s var(--ease-out); } .ds-nav ul a:hover { color: var(--color-primary); } .ds-nav ul a[aria-current='page'] { color: var(--color-primary); border-color: var(--color-primary); } .ds-nav ul a:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; } .ds-nav-cta { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0.55rem 1.1rem 0.45rem; border-radius: 10px; background: var(--color-primary); color: var(--color-on-primary); font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; } .ds-nav-cta:hover { background: var(--color-primary-dark); }"
+    },
+    {
+      "name": "Tags",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Outlined pill tags on menu items: burgundy for signature and spicy, menu-ink for vegetarian.",
+      "html": "<ul class=\"ds-tags\"><li class=\"ds-tag ds-tag--sig\">signature</li><li class=\"ds-tag ds-tag--veg\">végétarien</li></ul>",
+      "css": ".ds-tags { display: flex; gap: 0.4rem; list-style: none; margin: 0; padding: 0; } .ds-tag { font-family: var(--font-display); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 0.2rem 0.6rem 0.1rem; border-radius: 999px; border: 2px solid currentColor; } .ds-tag--sig { color: var(--color-primary); } .ds-tag--veg { color: var(--color-text); }"
+    },
+    {
+      "name": "Checkerboard Frame",
+      "kind": "card",
+      "refersTo": "",
+      "description": "The primary container: a three-check burgundy/cream frame, open at the top, with the section title set in the opening.",
+      "html": "<div class=\"ds-frame\"><div class=\"ds-frame__title\"><h2>Pizza</h2></div><p class=\"ds-frame__sub\">Entières · 40 cm</p></div>",
+      "css": ".ds-frame { position: relative; margin-top: 2.2rem; padding: calc(30px + 2.75rem) calc(30px + 2rem) calc(30px + 2rem); background: var(--color-bg); } .ds-frame::before { content: ''; position: absolute; inset: 0; padding: 30px; background: conic-gradient(var(--color-primary) 25%, var(--color-bg) 0 50%, var(--color-primary) 0 75%, var(--color-bg) 0) 0 0 / 20px 20px round; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); pointer-events: none; } .ds-frame__title { position: absolute; z-index: 1; top: 15px; left: 50%; translate: -50% -50%; padding: 0.6rem 2rem; background: var(--color-bg); } .ds-frame__title h2 { margin: 0 -0.14em 0 0; font-family: var(--font-display); font-weight: 800; font-size: 3.5rem; line-height: 0.85; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-primary); white-space: nowrap; } .ds-frame__sub { margin: 0; text-align: center; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.38em; text-transform: uppercase; color: var(--color-text); }"
+    },
+    {
+      "name": "Menu Item",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Caps name, dotted leader, split burgundy price; ingredients beneath in small uppercase Jost.",
+      "html": "<article class=\"ds-item\"><div class=\"ds-item__head\"><h3>Original Pepperoni</h3><span class=\"ds-item__dots\"></span><span class=\"ds-item__price\"><span class=\"ds-u\">15</span><span class=\"ds-c\">,90 €</span></span></div><p>Sauce tomate, mozzarella, pepperoni</p></article>",
+      "css": ".ds-item { padding-block: 0.9rem; max-width: 34rem; } .ds-item__head { display: flex; align-items: baseline; gap: 0.75rem; } .ds-item h3 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; line-height: 1.05; letter-spacing: 0.01em; text-transform: uppercase; color: var(--color-text); } .ds-item__dots { flex: 1 0 1rem; border-bottom: 2px dotted var(--color-text); opacity: 0.4; transform: translateY(-0.3em); } .ds-item__price { font-family: var(--font-display); font-weight: 800; color: var(--color-primary); white-space: nowrap; line-height: 1; } .ds-u { font-size: 2.1rem; } .ds-c { font-size: 0.95rem; letter-spacing: 0.02em; } .ds-item p { margin: 0.3rem 0 0; font-family: var(--font-body); font-size: 0.92rem; font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase; color: var(--color-muted); }"
+    },
+    {
+      "name": "Band",
+      "kind": "custom",
+      "refersTo": "band",
+      "description": "Rounded flat burgundy strip in cream caps with line icons, after the print menu's EXTRA strip.",
+      "html": "<div class=\"ds-band\"><span>Aujourd’hui : 11h30 – 14h30 · 18h30 – 22h30</span><span>84000 Avignon</span></div>",
+      "css": ".ds-band { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 2rem; padding: 1.1rem 2.25rem 0.95rem; border-radius: 14px; background: var(--color-primary); color: var(--color-on-primary); font-family: var(--font-display); font-weight: 700; font-size: 1rem; letter-spacing: 0.06em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Open Status",
+      "kind": "chip",
+      "refersTo": "status-pill",
+      "description": "Outlined pill with a live open/closed line; the dot pulses only while open.",
+      "html": "<p class=\"ds-status is-open\"><span class=\"ds-status__dot\"></span>Ouvert · jusqu’à 14h30</p>",
+      "css": ".ds-status { display: inline-flex; align-items: center; gap: 0.6rem; margin: 0; padding: 0.45rem 0.9rem 0.35rem; border: 2px solid currentColor; border-radius: 999px; font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-text); } .ds-status.is-open { color: var(--color-primary); } .ds-status__dot { position: relative; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: currentColor; } .ds-status.is-open .ds-status__dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: currentColor; animation: ds-ping 2.4s var(--ease-out) infinite; } @keyframes ds-ping { from { transform: scale(1); opacity: 0.6; } to { transform: scale(2.8); opacity: 0; } } @media (prefers-reduced-motion: reduce) { .ds-status__dot::after { animation: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Counter Menu",
+    "overview": "**Creative North Star: \"The Counter Menu\"**\n\nThe site is Slice's own printed menu carried onto the screen: cream stock, burgundy ink, a burgundy-and-cream checkerboard frame, and heavy geometric capitals that shout names and prices the way the board above the counter does. Every device on the page comes from the client's 2026 print menus and badge logo in `design-source/`; nothing is borrowed from the generic pizzeria template.\n\nDensity is that of a menu, not a brochure: two columns of names, dotted leaders and prices inside a frame, generous cream around it. Burgundy appears as ink (headings, prices, rules) and as whole flat fields (the rounded band, the visit section, the drinks pill), never as a gradient or tint. The page is flat print: depth comes from overlap (the band crossing the frame's bottom edge, the title sitting in the frame's gap) and from inversion (cream on burgundy, cream on menu-ink in the footer), not from shadows.\n\nThe client's black badge logo is used as supplied (raster `public/logo.png`), recoloured only through a CSS mask to cream or burgundy, never redrawn. Photography and the hero video are the client's own footage only (slots in `src/data/media.ts` and `about.ts`, rendered by `Media.astro`); until supplied, each slot shows a dashed « à fournir » placeholder with its shooting brief.",
+    "keyCharacteristics": [
+      "Cream paper ground, burgundy ink, near-black names.",
+      "A three-check (30px) checkerboard frame, open at the top; the section title sits in the opening.",
+      "Heavy uppercase League Spartan for every name, price, heading and control; Jost for running text.",
+      "Dotted leaders run from names to prices; cents are set small beside large euro units.",
+      "Flat fields with soft corners; no shadows, no gradients. Photos only from the client."
+    ],
+    "rules": [
+      {
+        "name": "The Two Inks Rule",
+        "body": "Text on cream is burgundy or menu-ink (warm graphite for quiet text), never a third hue. Burgundy marks what the menu shouts (headings, prices, actions); menu-ink carries names and reading text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Whole Field Rule",
+        "body": "When burgundy is a background it is a full, flat field (band, section, pill, today row), never a tint, wash or gradient.",
+        "section": "colors"
+      },
+      {
+        "name": "The Shouted Caps Rule",
+        "body": "Names, prices, headings and controls are uppercase League Spartan at 700 or 800. Jost is never set in display sizes.",
+        "section": "typography"
+      },
+      {
+        "name": "The Small Cents Rule",
+        "body": "Prices always split euros and cents: large units, cents at 0.95rem, both burgundy.",
+        "section": "typography"
+      },
+      {
+        "name": "The Open Frame Rule",
+        "body": "Every checkerboard frame is open at the top, as on the print menus: either a cream gap over the middle 68% (56% on mobile) or the frame title sitting in the gap. On mobile the opening widens rather than the title shrinking below 2.4rem.",
+        "section": "layout"
+      },
+      {
+        "name": "The Printed Sheet Rule",
+        "body": "Surfaces are ink on paper. Show hierarchy with overlap, fields and type weight, not drop shadows or blur.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do derive new visual material from the client's print menus and logo in `design-source/`.",
+      "Do put new menus and key panels inside the checkerboard frame, open at the top, built from the 10px check.",
+      "Do set names, prices, headings and controls in uppercase League Spartan 700–800, and running text in Jost.",
+      "Do split prices into large euros and small cents, joined to the name by a dotted leader.",
+      "Do use burgundy as a whole flat field when a block needs weight, with cream text and cream focus outlines on it.",
+      "Do keep the phone call the primary filled action on every page."
+    ],
+    "donts": [
+      "Don't redraw, re-colour by hand or restyle the badge logo; recolour only through the CSS mask to cream or burgundy.",
+      "Don't use stock imagery or generated images of the food or the shops; only the client's own photos and video, in the existing media slots.",
+      "Don't add drop shadows, gradients or blur; depth comes from overlap and inverted fields.",
+      "Don't close the checkerboard frame at the top or shrink a frame title below 2.4rem to fit; widen the opening instead.",
+      "Don't introduce a text hue on cream beyond burgundy, menu-ink and warm graphite."
+    ]
+  }
+}

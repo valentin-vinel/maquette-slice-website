@@ -1,0 +1,178 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Frame from '../components/Frame.astro';
+import Icon from '../components/Icon.astro';
+import MenuItem from '../components/MenuItem.astro';
+import { menu, itemId } from '../data/menu';
+
+const [pizzas, ...others] = menu;
+const half = Math.ceil(pizzas.items.length / 2);
+const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
+---
+
+<Layout title="La carte" description="La carte de Slice à Avignon : pizzas de 40 cm, desserts et boissons, avec les prix.">
+  <section class="page-head">
+    <div class="container">
+      <h1>La carte</h1>
+      <p>Toutes nos pizzas sont à emporter. Pour commander, <a href="/contact#boutiques">appelez la boutique de votre choix</a>.</p>
+      <nav class="anchors" aria-label="Sections de la carte">
+        {menu.map((s) => <a href={`#${s.id}`}>{s.title}</a>)}
+      </nav>
+    </div>
+  </section>
+
+  <div class="container">
+    <Frame class="board">
+      <h2 slot="title" id={`${pizzas.id}-title`}>{pizzas.title}</h2>
+      <section id={pizzas.id} aria-labelledby={`${pizzas.id}-title`}>
+        {pizzas.subtitle && <p class="sub">{pizzas.subtitle}</p>}
+        <div class="board__grid">
+          {
+            columns.map((items) => (
+              <div>
+                {items.map((item) => (
+                  <MenuItem item={item} id={itemId(pizzas.id, item)} />
+                ))}
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </Frame>
+
+    <div class="others">
+      {
+        others.map((section) => (
+          <Frame class="board board--small">
+            <h2 slot="title" id={`${section.id}-title`}>{section.title}</h2>
+            <section id={section.id} aria-labelledby={`${section.id}-title`}>
+              {section.items.map((item) => (
+                <MenuItem
+                  item={item}
+                  id={itemId(section.id, item)}
+                  label={section.id === 'boissons' ? `Boisson ${item.name}` : item.name}
+                />
+              ))}
+              {section.subtitle && <p class="pill">{section.subtitle}</p>}
+            </section>
+          </Frame>
+        ))
+      }
+    </div>
+
+    <p class="cta">
+      <a href="/contact#boutiques" class="btn"><Icon name="phone" />Commander par téléphone</a>
+    </p>
+  </div>
+</Layout>
+
+<style>
+  .page-head {
+    padding-block: clamp(3rem, 7vw, 5rem) clamp(2rem, 4vw, 3rem);
+    text-align: center;
+  }
+
+  .page-head h1 {
+    font-size: clamp(3rem, 9vw, 6rem);
+    letter-spacing: 0.14em;
+    margin-right: -0.14em;
+  }
+
+  .page-head p {
+    font-size: 1.15rem;
+  }
+
+  .page-head p a {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .anchors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.75rem;
+  }
+
+  .anchors a {
+    padding: 0.6rem 1.2rem 0.45rem;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-sm);
+    color: var(--color-primary);
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.25s var(--ease-out), color 0.25s var(--ease-out);
+  }
+
+  .anchors a:hover {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  section {
+    scroll-margin-top: 9rem;
+  }
+
+  .board__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 clamp(2rem, 6vw, 5rem);
+  }
+
+  .others {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .sub {
+    margin: 0 0 clamp(1.5rem, 4vw, 2.5rem);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(0.95rem, 2vw, 1.3rem);
+    letter-spacing: 0.38em;
+    margin-right: -0.38em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .others h2 {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+  }
+
+  .pill {
+    margin: 1.5rem 0 0;
+    padding: 0.85rem 1.25rem 0.7rem;
+    border-radius: var(--radius);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .cta {
+    margin: clamp(2.5rem, 5vw, 4rem) 0 clamp(4rem, 8vw, 6rem);
+    text-align: center;
+  }
+
+  @media (max-width: 860px) {
+    .board__grid,
+    .others {
+      grid-template-columns: 1fr;
+    }
+
+    .pill {
+      border-radius: var(--radius);
+    }
+  }
+</style>

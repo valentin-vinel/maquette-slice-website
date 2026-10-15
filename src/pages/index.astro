@@ -1,0 +1,468 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Frame from '../components/Frame.astro';
+import Icon from '../components/Icon.astro';
+import OpenStatus from '../components/OpenStatus.astro';
+import ShopCard from '../components/ShopCard.astro';
+import ReviewMarquee from '../components/ReviewMarquee.astro';
+import About from '../components/About.astro';
+import MenuItem from '../components/MenuItem.astro';
+import Media from '../components/Media.astro';
+import { shops } from '../data/site';
+import { reviews, profiles, overallRating, countLabel } from '../data/reviews';
+import { pizzas, startingPrice, itemId } from '../data/menu';
+import { heroMedia, gallery } from '../data/media';
+
+const fromPrice = new Intl.NumberFormat('fr-FR', {
+  style: 'currency',
+  currency: 'EUR',
+  trailingZeroDisplay: 'stripIfInteger',
+}).format(startingPrice);
+const rating = overallRating.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const half = Math.ceil(pizzas.items.length / 2);
+const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
+---
+
+<Layout>
+  <section class="devanture">
+    <div class="container">
+      <div class="devanture__grid">
+          <div class="devanture__window">
+            <Frame class="devanture__vframe" closed>
+              <Media media={heroMedia} eager class="devanture__media" />
+            </Frame>
+          </div>
+
+          <div class="devanture__copy">
+            <OpenStatus />
+            <h1>Pizzas artisanales, 40&nbsp;cm</h1>
+            <p class="devanture__lead">
+              {shops.length} boutiques dans le centre-ville, des pizzas à emporter. Margherita, Original Pepperoni, Chicken
+              Ranch, Ooh Honey… à partir de {fromPrice}.
+            </p>
+            <div class="devanture__actions">
+              <a href="#boutiques" class="btn">
+                <Icon name="phone" />
+                Appeler une boutique
+              </a>
+              <a href="/carte" class="btn btn--ghost">Voir la carte</a>
+            </div>
+          </div>
+        </div>
+
+        <ul class="band" aria-label="Nos boutiques">
+          {
+            shops.map((shop) => (
+              <li>
+                <a href={`#${shop.id}`} class="band__item">
+                  <Icon name="pin" />
+                  <span class="band__name">{shop.name}</span>
+                  <OpenStatus shop={shop.id} tone="dark" compact />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+    </div>
+  </section>
+
+  <section class="section carte" aria-labelledby="carte-title">
+    <div class="container">
+      <Frame>
+        <h2 slot="title" id="carte-title">Pizza</h2>
+        <p class="carte__sub">{pizzas.subtitle}</p>
+        <div class="carte__grid">
+          {
+            columns.map((items) => (
+              <div>
+                {items.map((item) => (
+                  <MenuItem item={item} id={itemId(pizzas.id, item)} />
+                ))}
+              </div>
+            ))
+          }
+        </div>
+      </Frame>
+
+      <p class="carte__more">
+        <a href="/carte" class="link-arrow">Desserts et boissons : toute la carte <Icon name="arrow" /></a>
+      </p>
+    </div>
+  </section>
+
+  <About />
+
+  <section class="section avis" aria-labelledby="avis-title">
+    <div class="container">
+      <div class="avis__head">
+        <h2 id="avis-title">Vos avis</h2>
+        <p class="avis__rating">
+          <Icon name="star" />
+          <span><strong>{rating}</strong>&nbsp;/ 5 · {countLabel} avis Google</span>
+        </p>
+      </div>
+    </div>
+
+    <ReviewMarquee reviews={reviews} />
+
+    <div class="container">
+      <p class="avis__more">
+        Tous les avis sur Google :
+        {
+          profiles.map((p) => (
+            <a href={p.url} class="link-arrow" target="_blank" rel="noopener noreferrer">
+              {p.shop} ({p.count}) <Icon name="arrow" />
+            </a>
+          ))
+        }
+      </p>
+    </div>
+  </section>
+
+  <section class="galerie" aria-label="Les boutiques en images">
+    <div class="container gallery">
+      {gallery.map((media) => <Media media={media} tone="dark" class="gallery__item" />)}
+    </div>
+  </section>
+
+  <section class="boutiques" id="boutiques" aria-labelledby="boutiques-title">
+    <div class="container">
+      <div class="boutiques__head">
+        <h2 id="boutiques-title">Nos {shops.length} boutiques</h2>
+        <p>Dans le centre-ville d’Avignon, à emporter. Pour commander, appelez la boutique de votre choix.</p>
+      </div>
+      <div class="boutiques__grid">
+        {shops.map((shop) => <ShopCard shop={shop} />)}
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* Devanture */
+  .devanture {
+    padding-block: clamp(1.5rem, 4vw, 3rem) clamp(3.5rem, 7vw, 5rem);
+  }
+
+  .devanture__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(2rem, 5vw, 5rem);
+  }
+
+  /* La vitrine : vidéo de la boutique, logo posé en pastille sur le coin. */
+  .devanture__window {
+    position: relative;
+    width: 100%;
+    max-width: 470px;
+    justify-self: center;
+  }
+
+  /* Le damier encadre le média bord à bord : ni espace, ni coins arrondis. */
+  .devanture :global(.devanture__vframe) {
+    padding: var(--frame-w);
+  }
+
+  .devanture :global(.devanture__media) {
+    aspect-ratio: 4 / 5;
+    border-radius: 0;
+  }
+
+  .devanture__copy {
+    display: grid;
+    justify-items: start;
+    gap: 1.25rem;
+  }
+
+  /* Statut au-dessus du titre : plus discret que dans les fiches boutiques. */
+  .devanture__copy :global(.status) {
+    gap: 0.45rem;
+    padding: 0.3rem 0.65rem 0.22rem;
+    border-width: 1.5px;
+    font-size: 0.78rem;
+  }
+
+  .devanture__copy :global(.status__dot) {
+    width: 0.45rem;
+    height: 0.45rem;
+  }
+
+  .devanture__copy h1 {
+    margin: 0.25rem 0 0;
+  }
+
+  .devanture__lead {
+    margin: 0;
+    max-width: 44ch;
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+    line-height: 1.5;
+  }
+
+  .devanture__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  /* Bandeau bordeaux des boutiques sous le hero, comme le bloc EXTRA de la carte. */
+  .band {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem clamp(1.75rem, 3vw, 3rem);
+    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+    list-style: none;
+    padding: 0.85rem clamp(1.25rem, 3vw, 2.25rem) 0.75rem;
+    border-radius: var(--radius);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* Desktop : le statut sur la même ligne que le nom. */
+  .band__item {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    gap: 0.15rem 0.6rem;
+    white-space: nowrap;
+  }
+
+  .band__item :global(.status) {
+    margin-left: 0.25rem;
+  }
+
+  /* Plus étroit : le statut passe sous le nom, aligné avec lui. */
+  @media (max-width: 1150px) {
+    .band__item {
+      grid-template-columns: auto 1fr;
+    }
+
+    .band__item :global(.status) {
+      grid-column: 2;
+      margin-left: 0;
+    }
+  }
+
+  .band :global(svg) {
+    width: 1.2em;
+    height: 1.2em;
+    flex: none;
+    transform: translateY(-0.08em);
+  }
+
+  .band a {
+    text-decoration: none;
+  }
+
+  .band a:hover .band__name {
+    text-decoration: underline;
+  }
+
+  .band a:focus-visible {
+    outline-color: var(--color-on-primary);
+  }
+
+  /* Carte */
+  .carte__sub {
+    margin: 0 0 clamp(1.5rem, 4vw, 2.5rem);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(0.95rem, 2vw, 1.3rem);
+    letter-spacing: 0.38em;
+    margin-right: -0.38em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .carte__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 clamp(2rem, 6vw, 5rem);
+  }
+
+  .carte__more {
+    margin: clamp(2rem, 4vw, 3rem) 0 0;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  /* Avis */
+  .avis {
+    padding-top: 0;
+  }
+
+  .avis__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .avis__head h2 {
+    margin: 0;
+  }
+
+  .avis__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .avis__rating strong {
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .avis__rating :global(svg) {
+    width: 1rem;
+    height: 1rem;
+    color: var(--color-primary);
+    transform: translateY(-0.08em);
+  }
+
+
+  .avis__more {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.5rem 1.5rem;
+    margin: clamp(1.5rem, 3vw, 2.25rem) 0 0;
+    font-size: 1.1rem;
+  }
+
+  /* Boutiques : sur le crème, fiches claires. */
+  .boutiques {
+    padding-block: clamp(3.5rem, 8vw, 6rem) clamp(4rem, 8vw, 6rem);
+  }
+
+  /* Photos : aplat bordeaux, bande de damier en haut. */
+  .galerie {
+    position: relative;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    padding-block: calc(var(--check) * 3 + clamp(3rem, 6vw, 4.5rem)) clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .galerie::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: calc(var(--check) * 3);
+    background: var(--checker);
+    /* Pas d'ajustement « round » ici : il réduirait les carreaux sur une bande de 3 rangées. */
+    background-repeat: repeat;
+  }
+
+  .boutiques__head {
+    max-width: 52rem;
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+
+  .boutiques__head p {
+    margin: 0;
+    max-width: 48ch;
+    font-size: 1.15rem;
+  }
+
+  .boutiques__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+  }
+
+  .gallery :global(.gallery__item) {
+    aspect-ratio: 4 / 5;
+  }
+
+  @media (max-width: 1000px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Mobile : carrousel horizontal, une photo et le début de la suivante. */
+  @media (max-width: 640px) {
+    .gallery {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 78%;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 0.75rem;
+      scrollbar-color: var(--color-on-primary) var(--color-primary-dark);
+    }
+
+    .gallery :global(.gallery__item) {
+      scroll-snap-align: start;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .devanture__grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .devanture__window {
+      order: 2;
+      max-width: 520px;
+      margin-top: 1.5rem;
+    }
+
+    .devanture :global(.devanture__media) {
+      aspect-ratio: 4 / 3;
+    }
+
+    .devanture__copy {
+      justify-items: center;
+      text-align: center;
+    }
+
+    .devanture__actions {
+      justify-content: center;
+    }
+
+    .carte__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .devanture__actions {
+      flex-direction: column;
+      align-self: stretch;
+      width: 100%;
+    }
+
+    .band {
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>

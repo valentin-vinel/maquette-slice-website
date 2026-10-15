@@ -1,0 +1,113 @@
+---
+import { formatSlot, type Hours } from '../data/site';
+
+interface Props {
+  hours: Hours;
+  tone?: 'light' | 'dark';
+}
+
+const { hours, tone = 'light' } = Astro.props;
+---
+
+<dl class:list={['hours', `hours--${tone}`]}>
+  {
+    hours.map((h) => (
+      <div class="hours__row" data-days={h.days.join(',')}>
+        <dt>{h.label}</dt>
+        <span class="hours__dots" aria-hidden="true" />
+        <dd class:list={{ closed: h.slots.length === 0 }}>
+          {h.slots.length === 0 ? 'Fermé' : h.slots.map((s) => <span>{formatSlot(s)}</span>)}
+        </dd>
+      </div>
+    ))
+  }
+</dl>
+
+<script>
+  import '../scripts/hours';
+</script>
+
+<style>
+  .hours {
+    margin: 0;
+    display: grid;
+    container-type: inline-size;
+  }
+
+  /* Une seule mise en page pour toutes les lignes : jour · pointillés · services empilés à droite. */
+  .hours__row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.85rem 0.75rem 0.7rem;
+    margin-inline: -0.75rem;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+  }
+
+  dt {
+    white-space: nowrap;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .hours__dots {
+    flex: 1 0 1rem;
+    border-bottom: 2px dotted currentColor;
+    opacity: 0.35;
+  }
+
+  dd {
+    display: grid;
+    justify-items: end;
+    gap: 0.15rem;
+    margin: 0;
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .closed {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .hours--light .closed {
+    color: var(--color-primary);
+  }
+
+  /* Jour en cours : simple contour, sans changer les couleurs du texte. */
+  .hours--light .is-today {
+    border-color: var(--color-primary);
+  }
+
+  .hours--dark {
+    color: var(--color-on-primary);
+  }
+
+  .hours--dark .is-today {
+    border-color: var(--color-on-primary);
+  }
+
+  /* Colonne étroite : même mise en page pour toutes les lignes, horaires sous le jour. */
+  @container (max-width: 340px) {
+    .hours__row {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .hours__dots {
+      display: none;
+    }
+
+    dd {
+      justify-items: start;
+      text-align: left;
+    }
+  }
+</style>

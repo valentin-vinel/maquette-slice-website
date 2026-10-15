@@ -1,0 +1,152 @@
+---
+import Icon from './Icon.astro';
+import { formatPrice, splitPrice, type MenuItem } from '../data/menu';
+
+interface Props {
+  item: MenuItem;
+  id: string; // identifiant panier (itemId)
+  label?: string; // nom lisible hors contexte, ex. « Boisson 33 cl »
+}
+
+const { item, id, label = item.name } = Astro.props;
+const price = splitPrice(item.price);
+---
+
+<article class="item">
+  <div class="item__head">
+    <h3>{item.name}</h3>
+    <span class="item__dots" aria-hidden="true"></span>
+    <span class="item__price">
+      <span class="visually-hidden">{formatPrice(item.price)}</span>
+      <span aria-hidden="true"><span class="item__units">{price.units}</span><span class="item__cents">{price.cents}</span></span>
+    </span>
+  </div>
+  {item.description && <p>{item.description}</p>}
+  <span class="qty item__qty" data-cart-item={id} hidden>
+    <button type="button" class="qty__btn" data-cart-dec aria-label={`Retirer : ${label}`}><Icon name="minus" /></button>
+    <span class="qty__count" aria-hidden="true">0</span>
+    <button type="button" class="qty__btn" data-cart-inc aria-label={`Ajouter : ${label}`}><Icon name="plus" /></button>
+  </span>
+  {
+    item.tags && (
+      <ul class="item__tags">
+        {item.tags.map((tag) => <li class={`tag tag--${tag === 'végétarien' ? 'veg' : tag === 'épicé' ? 'hot' : 'sig'}`}>{tag}</li>)}
+      </ul>
+    )
+  }
+</article>
+
+<style>
+  /* Desktop : nom … prix [compteur] sur une ligne, description dessous.
+     Mobile : nom … prix, puis description avec le compteur à droite. */
+  .item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'head qty'
+      'desc desc'
+      'tags tags';
+    column-gap: 0.75rem;
+    padding-block: 0.9rem;
+  }
+
+  .item__head {
+    grid-area: head;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    min-width: 0;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--color-text);
+  }
+
+  .item__dots {
+    flex: 1 0 1rem;
+    border-bottom: 2px dotted var(--color-text);
+    opacity: 0.4;
+    transform: translateY(-0.3em);
+  }
+
+  .item__qty {
+    grid-area: qty;
+    align-self: center;
+  }
+
+  @media (max-width: 640px) {
+    .item {
+      grid-template-areas:
+        'head head'
+        'desc qty'
+        'tags tags';
+    }
+
+    .item__qty {
+      align-self: start;
+      margin-top: 0.3rem;
+    }
+  }
+
+  .item__price {
+    font-family: var(--font-display);
+    font-weight: 800;
+    color: var(--color-primary);
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .item__units {
+    font-size: clamp(1.7rem, 3vw, 2.1rem);
+  }
+
+  .item__cents {
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+  }
+
+  p {
+    grid-area: desc;
+    margin: 0.3rem 0 0;
+    max-width: 52ch;
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .item__tags {
+    grid-area: tags;
+    display: flex;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+
+  .tag {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.2rem 0.6rem 0.1rem;
+    border-radius: var(--radius);
+    border: 2px solid currentColor;
+  }
+
+  .tag--veg {
+    color: var(--color-text);
+  }
+
+  .tag--hot,
+  .tag--sig {
+    color: var(--color-primary);
+  }
+</style>
