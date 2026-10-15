@@ -182,6 +182,11 @@ img {
   transform: translateX(4px);
 }
 
+/* Lien externe : flèche diagonale, qui part en haut à droite au survol. */
+.link-arrow--out:hover svg {
+  transform: translate(2px, -2px);
+}
+
 /* Compteur + / − du panier (carte, accueil, commande). Masqué tant que le JS n'est pas chargé. */
 .qty {
   display: inline-flex;

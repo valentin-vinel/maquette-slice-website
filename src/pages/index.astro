@@ -9,7 +9,7 @@ import About from '../components/About.astro';
 import MenuItem from '../components/MenuItem.astro';
 import Media from '../components/Media.astro';
 import { shops } from '../data/site';
-import { reviews, profiles, overallRating, countLabel } from '../data/reviews';
+import { reviews, profiles, overallRating, countLabel, roundedCount } from '../data/reviews';
 import { pizzas, startingPrice, itemId } from '../data/menu';
 import { heroMedia, gallery } from '../data/media';
 
@@ -35,7 +35,7 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
 
           <div class="devanture__copy">
             <OpenStatus />
-            <h1>Pizzas artisanales, 40&nbsp;cm</h1>
+            <h1>Pizzas artisanales à&nbsp;Avignon</h1>
             <p class="devanture__lead">
               {shops.length} boutiques dans le centre-ville, des pizzas à emporter. Margherita, Original Pepperoni, Chicken
               Ranch, Ooh Honey… à partir de {fromPrice}.
@@ -110,8 +110,8 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
         Tous les avis sur Google :
         {
           profiles.map((p) => (
-            <a href={p.url} class="link-arrow" target="_blank" rel="noopener noreferrer">
-              {p.shop} ({p.count}) <Icon name="arrow" />
+            <a href={p.url} class="link-arrow link-arrow--out" target="_blank" rel="noopener noreferrer">
+              {p.shop} ({roundedCount(p.count)}) <Icon name="external" />
             </a>
           ))
         }

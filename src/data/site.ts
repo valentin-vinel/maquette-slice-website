@@ -1,5 +1,5 @@
 // Informations générales de la pizzeria.
-// À COMPLÉTER : téléphones et horaires des boutiques, e-mail et réseaux sont provisoires.
+// À COMPLÉTER : le téléphone d'Henri Fabre est provisoire.
 export type Slot = readonly [string, string];
 
 export type Hours = readonly {
@@ -18,12 +18,12 @@ export type Shop = {
   hours: Hours;
 };
 
-// Horaires provisoires, recopiés pour chaque boutique en attendant les vrais.
-const placeholderHours: Hours = [
-  { label: 'Lundi', days: [1], slots: [] },
-  { label: 'Mardi – Jeudi', days: [2, 3, 4], slots: [['11:30', '14:30'], ['18:30', '22:30']] },
-  { label: 'Vendredi – Samedi', days: [5, 6], slots: [['11:30', '14:30'], ['18:30', '23:30']] },
-  { label: 'Dimanche', days: [0], slots: [['18:30', '22:30']] },
+// Horaires communs aux 3 boutiques. Si une boutique a des horaires différents,
+// lui donner sa propre liste dans `shops` ci-dessous.
+const sharedHours: Hours = [
+  { label: 'Lundi – Vendredi', days: [1, 2, 3, 4, 5], slots: [['11:30', '14:30'], ['18:30', '22:30']] },
+  { label: 'Samedi', days: [6], slots: [['18:30', '22:30']] },
+  { label: 'Dimanche', days: [0], slots: [] },
 ];
 
 const maps = (street: string) =>
@@ -35,27 +35,27 @@ export const shops: Shop[] = [
     name: 'Carnot',
     street: '45 rue Carnot',
     city: '84000 Avignon',
-    phone: '04 90 00 00 01',
+    phone: '04 86 34 14 26',
     mapsUrl: maps('45 rue Carnot'),
-    hours: placeholderHours,
+    hours: sharedHours,
   },
   {
     id: 'republique',
     name: 'République',
     street: '26 rue de la République',
     city: '84000 Avignon',
-    phone: '04 90 00 00 02',
+    phone: '04 90 26 54 92',
     mapsUrl: maps('26 rue de la République'),
-    hours: placeholderHours,
+    hours: sharedHours,
   },
   {
     id: 'henri-fabre',
     name: 'Henri Fabre',
     street: '10 rue Henri Fabre',
     city: '84000 Avignon',
-    phone: '04 90 00 00 03',
+    phone: '04 90 00 00 03', // À COMPLÉTER : numéro d'Henri Fabre
     mapsUrl: maps('10 rue Henri Fabre'),
-    hours: placeholderHours,
+    hours: sharedHours,
   },
 ];
 
@@ -64,11 +64,10 @@ export const site = {
   tagline: 'Pizzeria à Avignon',
   description:
     'Slice, pizzeria dans le centre-ville d’Avignon : trois boutiques, des pizzas de 40 cm à emporter. Margherita, Original Pepperoni, Chicken Ranch, Ooh Honey…',
-  email: 'contact@exemple.fr',
-  // À COMPLÉTER : lien du compte Instagram de Slice (icône dans l'en-tête).
-  instagram: 'https://www.instagram.com/',
-  // Réseaux : à compléter avec les vrais comptes (la colonne du pied de page est masquée tant que la liste est vide).
-  socials: [] as { label: string; href: string }[],
+  email: 'sliceavignonpizza@gmail.com',
+  instagram: 'https://www.instagram.com/sliceavignonpizza/',
+  // Réseaux affichés dans le pied de page (colonne masquée si la liste est vide).
+  socials: [{ label: 'Instagram', href: 'https://www.instagram.com/sliceavignonpizza/' }] as { label: string; href: string }[],
 };
 
 export const formatTime = (t: string) => t.replace(':', 'h');
