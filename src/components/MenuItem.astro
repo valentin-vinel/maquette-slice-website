@@ -1,6 +1,10 @@
 ---
+import { Picture } from 'astro:assets';
 import Icon from './Icon.astro';
 import { formatPrice, splitPrice, type MenuItem } from '../data/menu';
+
+// Photos des produits (src/assets/menu/), retrouvées par le champ `photo` de menu.ts.
+const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/menu/*.jpg', { eager: true });
 
 interface Props {
   item: MenuItem;
@@ -11,9 +15,24 @@ interface Props {
 
 const { item, id, label = item.name, configurable = false } = Astro.props;
 const price = splitPrice(item.price);
+const photo = item.photo && photos[`../assets/menu/${item.photo}.jpg`]?.default;
+if (item.photo && !photo) throw new Error(`Photo introuvable : src/assets/menu/${item.photo}.jpg (${item.name})`);
 ---
 
 <article class="item">
+  {
+    photo && (
+      <Picture
+        src={photo}
+        alt=""
+        class="item__img"
+        pictureAttributes={{ class: 'item__photo' }}
+        formats={['avif', 'webp']}
+        widths={[360, 560, 800, 1100]}
+        sizes="(max-width: 860px) calc(100vw - 5rem), 520px"
+      />
+    )
+  }
   <div class="item__head">
     <h3>{item.name}</h3>
     <span class="item__dots" aria-hidden="true"></span>
@@ -55,11 +74,29 @@ const price = splitPrice(item.price);
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
+      'photo photo'
       'head qty'
       'desc desc'
       'tags tags';
+    align-content: start;
     column-gap: 0.75rem;
     padding-block: 0.9rem;
+  }
+
+  /* Photo en paysage (4:3, main à gauche) au-dessus du nom, sur toute la largeur de la colonne. */
+  .item__photo {
+    grid-area: photo;
+    margin-bottom: 0.9rem;
+  }
+
+  .item__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
   }
 
   .item__head {
@@ -94,6 +131,7 @@ const price = splitPrice(item.price);
   @media (max-width: 640px) {
     .item {
       grid-template-areas:
+        'photo photo'
         'head head'
         'desc qty'
         'tags tags';

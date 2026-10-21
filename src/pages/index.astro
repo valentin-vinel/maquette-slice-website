@@ -9,6 +9,7 @@ import About from '../components/About.astro';
 import MenuItem from '../components/MenuItem.astro';
 import Media from '../components/Media.astro';
 import Extras from '../components/Extras.astro';
+import PizzaOfTheMonth from '../components/PizzaOfTheMonth.astro';
 import { shops } from '../data/site';
 import { reviews, profiles, overallRating, countLabel, roundedCount } from '../data/reviews';
 import { pizzas, startingPrice, itemId, extrasHint } from '../data/menu';
@@ -21,7 +22,6 @@ const fromPrice = new Intl.NumberFormat('fr-FR', {
 }).format(startingPrice);
 const rating = overallRating.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const half = Math.ceil(pizzas.items.length / 2);
-const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
 ---
 
 <Layout>
@@ -67,6 +67,10 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
     </div>
   </section>
 
+  <div class="container mois-home">
+    <PizzaOfTheMonth />
+  </div>
+
   <section class="section carte" aria-labelledby="carte-title">
     <div class="container">
       <Frame>
@@ -75,16 +79,8 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
         <p class="extras-hint">
           <a href="#extras">{extrasHint}</a>
         </p>
-        <div class="carte__grid">
-          {
-            columns.map((items) => (
-              <div>
-                {items.map((item) => (
-                  <MenuItem item={item} id={itemId(pizzas.id, item)} configurable />
-                ))}
-              </div>
-            ))
-          }
+        <div class="carte__grid" style={`--rows: ${half}`}>
+          {pizzas.items.map((item) => <MenuItem item={item} id={itemId(pizzas.id, item)} configurable />)}
         </div>
         <Extras />
       </Frame>
@@ -145,6 +141,11 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
 </Layout>
 
 <style>
+  /* Pizza du mois, entre la devanture et la carte */
+  .mois-home {
+    padding-top: clamp(2.5rem, 6vw, 4rem);
+  }
+
   /* Devanture */
   .devanture {
     padding-block: clamp(1.5rem, 4vw, 3rem) clamp(3.5rem, 7vw, 5rem);
@@ -287,9 +288,12 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
     text-transform: uppercase;
   }
 
+  /* Deux colonnes remplies l'une après l'autre ; les lignes sont partagées, donc les photos s'alignent. */
   .carte__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(var(--rows), auto);
+    grid-auto-flow: column;
     gap: 0 clamp(2rem, 6vw, 5rem);
   }
 
@@ -453,6 +457,8 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
 
     .carte__grid {
       grid-template-columns: 1fr;
+      grid-template-rows: none;
+      grid-auto-flow: row;
     }
   }
 

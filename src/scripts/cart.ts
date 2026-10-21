@@ -1,6 +1,6 @@
 // Panier de commande, entièrement dans le navigateur : rien n'est envoyé.
 // Le visiteur compose sa liste puis appelle la boutique de son choix en l'ayant sous les yeux.
-import { catalog, extraCatalog, formatPrice, pizzas, itemId } from '../data/menu';
+import { catalog, extraCatalog, formatPrice, pizzas, orderablePizzas, itemId } from '../data/menu';
 
 // Une ligne = un article et ses extras, encodés dans la clé :
 // « desserts-cookie-xl-maison », « pizzas-royale+extras-burrata+extras-chevre+extras-chevre ».
@@ -14,7 +14,7 @@ const MAX = 20;
 const MAX_EXTRA = 5; // même extra sur une pizza
 const byId = new Map(catalog.map((item) => [item.id, item]));
 const extraById = new Map(extraCatalog.map((extra) => [extra.id, extra]));
-const pizzaById = new Map(pizzas.items.map((item) => [itemId(pizzas.id, item), item]));
+const pizzaById = new Map(orderablePizzas.map((item) => [itemId(pizzas.id, item), item]));
 const extraOrder = new Map(extraCatalog.map((extra, i) => [extra.id, i]));
 
 const lineKey = (base: string, extras: string[]) =>

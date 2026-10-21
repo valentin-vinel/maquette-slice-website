@@ -51,7 +51,7 @@ The current site copy describes a Neapolitan wood-fired pizzeria in Paris; that 
 - `design-source/slice-logo.ai` — logo source (PDF-compatible Illustrator file, black). Web export: `public/logo.png` (826×756, transparent). No SVG export yet.
 - `design-source/menu-pizza-2026.pdf` — 2026 pizza menu: whole pizzas, slices, extras, with prices. The authoritative source for the menu. The five slice-only pizzas (Champignon, Jambon, Poivron grillé, Carbo Style, Chèvre Miel) are sold whole at 4 × the slice price (client's rule, 2026-10-15).
 - `design-source/desserts-boissons-2026.pdf` — 2026 desserts and drinks poster (Cookie XL maison 3,50 €, Pizza Nutella 10 €; drinks 33 cl 2 € / 1,5 L 3,50 €).
-- **No photographs of the pizzas or the shop are in the repo yet.** Do not substitute stock imagery or AI-generated images of the food or the place.
+- **Product photos (2026-10-21)**: one real photo per pizza (all 14) and of the Cookie XL, shown on the menu above each name (`src/assets/menu/`, originals in `design-source/photos/`). Still missing: Pizza Nutella, the shop front, the oven, the counter (hero and gallery still use provisional photos). Do not substitute stock imagery or AI-generated images of the food or the place.
 - **Placeholder claims in current copy that the client's materials don't support:** Neapolitan style, 48 h dough, wood-fired oven at 450 °C, Italian-sourced ingredients, "Depuis 2018 · Paris 11e". Remove or verify; do not add new claims of this kind.
 - No testimonials, reviews, press, or awards are on hand. Do not fabricate any.
 

@@ -1,6 +1,6 @@
 ---
 interface Props {
-  name: 'phone' | 'pin' | 'arrow' | 'clock' | 'mail' | 'play' | 'pause' | 'star' | 'instagram' | 'bag' | 'close' | 'plus' | 'minus' | 'external';
+  name: 'phone' | 'pin' | 'arrow' | 'clock' | 'mail' | 'play' | 'pause' | 'star' | 'instagram' | 'facebook' | 'bag' | 'close' | 'plus' | 'minus' | 'external';
 }
 
 const { name } = Astro.props;
@@ -67,6 +67,16 @@ const { name } = Astro.props;
         <circle cx="12" cy="12" r="4.2" />
         <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
       </>
+    )
+  }
+  {
+    name === 'facebook' && (
+      <path
+        transform="translate(2.4 2.4) scale(0.8)"
+        fill="currentColor"
+        stroke="none"
+        d="M9.1 23.7v-8H6.6V12h2.5v-1.6c0-4.1 1.8-6 5.9-6 .8 0 2 .1 2.6.3v3.3l-1.4-.1c-2 0-2.7.7-2.7 2.7V12h3.9l-.7 3.7h-3.2v8.2c5.8-.7 10.5-5.7 10.5-11.9C24 5.4 18.6 0 12 0S0 5.4 0 12c0 5.6 3.9 10.4 9.1 11.7Z"
+      />
     )
   }
   {

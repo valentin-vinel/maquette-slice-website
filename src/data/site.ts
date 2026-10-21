@@ -70,9 +70,11 @@ export const site = {
   description:
     'Slice, pizzeria dans le centre-ville d’Avignon : trois boutiques, des pizzas de 40 cm à emporter. Margherita, Original Pepperoni, Chicken Ranch, Ooh Honey…',
   email: 'sliceavignonpizza@gmail.com',
-  instagram: 'https://www.instagram.com/sliceavignonpizza/',
-  // Réseaux affichés dans le pied de page (colonne masquée si la liste est vide).
-  socials: [{ label: 'Instagram', href: 'https://www.instagram.com/sliceavignonpizza/' }] as { label: string; href: string }[],
+  // Réseaux : icônes de l'en-tête, menu mobile et pied de page. Un réseau sans `href` n'est pas affiché.
+  socials: [
+    { label: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/sliceavignonpizza/' },
+    { label: 'Facebook', icon: 'facebook', href: 'https://www.facebook.com/sliceavignonpizza/' },
+  ].filter((s) => s.href) as { label: string; icon: 'instagram' | 'facebook'; href: string }[],
 };
 
 export const formatTime = (t: string) => t.replace(':', 'h');

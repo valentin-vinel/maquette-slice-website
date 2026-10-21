@@ -4,11 +4,11 @@ import Frame from '../components/Frame.astro';
 import Icon from '../components/Icon.astro';
 import MenuItem from '../components/MenuItem.astro';
 import Extras from '../components/Extras.astro';
+import PizzaOfTheMonth from '../components/PizzaOfTheMonth.astro';
 import { menu, itemId, itemLabel, extrasHint } from '../data/menu';
 
 const [pizzas, ...others] = menu;
 const half = Math.ceil(pizzas.items.length / 2);
-const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
 ---
 
 <Layout title="La carte" description="La carte de Slice à Avignon : pizzas de 40 cm, desserts et boissons, avec les prix.">
@@ -23,6 +23,10 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
   </section>
 
   <div class="container">
+    <div class="mois-carte">
+      <PizzaOfTheMonth />
+    </div>
+
     <Frame class="board">
       <h2 slot="title" id={`${pizzas.id}-title`}>{pizzas.title}</h2>
       <section id={pizzas.id} aria-labelledby={`${pizzas.id}-title`}>
@@ -30,16 +34,8 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
         <p class="extras-hint">
           <a href="#extras">{extrasHint}</a>
         </p>
-        <div class="board__grid">
-          {
-            columns.map((items) => (
-              <div>
-                {items.map((item) => (
-                  <MenuItem item={item} id={itemId(pizzas.id, item)} configurable />
-                ))}
-              </div>
-            ))
-          }
+        <div class="board__grid" style={`--rows: ${half}`}>
+          {pizzas.items.map((item) => <MenuItem item={item} id={itemId(pizzas.id, item)} configurable />)}
         </div>
         <Extras />
       </section>
@@ -122,9 +118,16 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
     scroll-margin-top: 9rem;
   }
 
+  .mois-carte {
+    margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  /* Deux colonnes remplies l'une après l'autre ; les lignes sont partagées, donc les photos s'alignent. */
   .board__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(var(--rows), auto);
+    grid-auto-flow: column;
     gap: 0 clamp(2rem, 6vw, 5rem);
   }
 
@@ -174,6 +177,11 @@ const columns = [pizzas.items.slice(0, half), pizzas.items.slice(half)];
     .board__grid,
     .others {
       grid-template-columns: 1fr;
+    }
+
+    .board__grid {
+      grid-template-rows: none;
+      grid-auto-flow: row;
     }
 
     .pill {

@@ -24,22 +24,34 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
           ))
         }
       </ul>
-      <!-- Mobile : Instagram dans le menu (sur desktop, l'icône est dans la barre). -->
-      <a href={site.instagram} class="nav__social" target="_blank" rel="noopener noreferrer">
-        <Icon name="instagram" />
-        Instagram
-      </a>
+      <!-- Mobile : réseaux dans le menu (sur desktop, les icônes sont dans la barre). -->
+      {
+        site.socials.map((s) => (
+          <a href={s.href} class="nav__social" target="_blank" rel="noopener noreferrer">
+            <Icon name={s.icon} />
+            {s.label}
+          </a>
+        ))
+      }
     </nav>
 
-    <a
-      href={site.instagram}
-      class="header__social"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Slice sur Instagram (nouvel onglet)"
-    >
-      <Icon name="instagram" />
-    </a>
+    {
+      site.socials.length > 0 && (
+        <div class="header__socials">
+          {site.socials.map((s) => (
+            <a
+              href={s.href}
+              class="header__social"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Slice sur ${s.label} (nouvel onglet)`}
+            >
+              <Icon name={s.icon} />
+            </a>
+          ))}
+        </div>
+      )
+    }
 
     <!-- Hors du menu : reste visible dans l'en-tête collant, y compris sur mobile. -->
     <a href="/contact#boutiques" class="btn header__cta"><Icon name="phone" />Appeler</a>
@@ -126,12 +138,16 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
     display: none;
   }
 
+  .header__socials {
+    display: flex;
+    margin-inline: -0.75rem;
+  }
+
   .header__social {
     display: grid;
     place-items: center;
     width: 2.75rem;
     height: 2.75rem;
-    margin-inline: -0.75rem;
     color: var(--color-text);
     transition: color 0.25s var(--ease-out);
   }
@@ -221,7 +237,7 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
       border-bottom: 0;
     }
 
-    .header__social {
+    .header__socials {
       display: none;
     }
 
