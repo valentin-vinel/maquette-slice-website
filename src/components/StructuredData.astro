@@ -1,0 +1,40 @@
+---
+// Données structurées schema.org (JSON-LD) pour Google : une fiche Restaurant par boutique ouverte,
+// avec adresse, téléphone et horaires tirés de site.ts. Incluses sur l'accueil.
+import { openShops, site, weekOf } from '../data/site';
+
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const url = (path: string) => new URL(path, Astro.site).href;
+
+const data = openShops.map((shop) => {
+  const [postalCode, ...locality] = shop.city.split(' ');
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Restaurant',
+    '@id': url(`/#${shop.id}`),
+    name: `${site.name} ${shop.name}`,
+    url: url('/'),
+    image: url(site.ogImage),
+    logo: url('/logo.png'),
+    telephone: shop.phone,
+    email: site.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: shop.street,
+      postalCode,
+      addressLocality: locality.join(' '),
+      addressCountry: 'FR',
+    },
+    servesCuisine: 'Pizza',
+    priceRange: '€',
+    acceptsReservations: false,
+    hasMenu: url('/carte'),
+    sameAs: site.socials.map((s) => s.href),
+    openingHoursSpecification: weekOf(shop.hours).flatMap((slots, d) =>
+      slots.map(([opens, closes]) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: days[d], opens, closes })),
+    ),
+  };
+});
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} is:inline />

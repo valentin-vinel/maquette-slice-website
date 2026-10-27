@@ -6,9 +6,9 @@ export const about = {
   title: 'L’histoire de Slice',
   founder: 'Remi' as string | undefined, // prénom du fondateur, affiché en signature manuscrite
   role: 'fondateur de Slice',
-  // 3 à 4 phrases au total, en 1 ou 2 paragraphes. TEXTE FACTICE : à remplacer par la vraie histoire de Slice.
+  // 3 à 4 phrases au total, en 1 ou 2 paragraphes.
   paragraphs: [
-    '(Texte factice, à remplacer par la vraie histoire de Slice.) Slice, c’est l’idée de Remi : des pizzas généreuses de 40 cm, garnies sans compter, à emporter en plein centre d’Avignon. On a commencé rue Carnot, puis les habitués nous ont suivis jusqu’à République et Henri Fabre.',
+    'Slice, c’est l’idée de Remi : des pizzas généreuses de 40 cm, garnies sans compter, à emporter en plein centre d’Avignon. On a commencé rue Carnot, puis les habitués nous ont suivis jusqu’à République et Henri Fabre.',
     'Chaque jour, on prépare la pâte, on garnit à la commande et on vous tend votre pizza encore chaude. Un coup de fil, on s’occupe du reste.',
   ] as string[],
   photo: {

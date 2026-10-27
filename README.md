@@ -22,6 +22,7 @@ Il n'y a ni tests ni linter : `npm run build` sert de vérification.
 - `/` — accueil : statut ouvert / fermé en direct, les pizzas et les extras, l'histoire de Slice, les avis Google, des photos, les boutiques
 - `/carte` — la carte complète : pizzas, extras, desserts, boissons
 - `/contact` — les boutiques : adresse, horaires, téléphone, itinéraire
+- `/mentions-legales` — mentions légales et confidentialité
 - `/404`
 
 ## « Ma commande »
@@ -42,6 +43,7 @@ Tout le contenu est dans `src/data/`. Les pages ne contiennent pas de texte mét
 | `reviews.ts` | Note et nombre d'avis des fiches Google, avis affichés dans le bandeau                    |
 | `about.ts`   | « L'histoire de Slice » : fondateur, texte, portrait                                      |
 | `media.ts`   | Photo du hero et photos de la galerie                                                     |
+| `legal.ts`   | Mentions légales : entreprise, SIRET, directeur de la publication, hébergeur             |
 
 Quelques cas courants :
 
@@ -67,8 +69,11 @@ design-source/    fichiers du client (logo .ai, cartes PDF 2026), non publiés
 
 ## À fournir par le client
 
+- Les mentions légales (`src/data/legal.ts`) : raison sociale, SIRET, RCS, TVA, directeur de la publication, hébergeur
+- L'image de partage `public/og-image.jpg` (1200 × 630, provisoire)
+- La pizza du mois (`pizzaOfTheMonth` dans `menu.ts`)
+
 - Le téléphone de la boutique Henri Fabre (fermée temporairement pour l'instant)
-- La vraie histoire de Slice (le texte actuel est factice)
 - Les photos définitives : devanture, four, comptoir (les photos actuelles sont provisoires)
 
 ## Documentation

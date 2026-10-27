@@ -106,6 +106,9 @@ const roundPrice = (price: number) =>
   new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', trailingZeroDisplay: 'stripIfInteger' }).format(price);
 const extraPrices = extras.map((e) => e.price);
 export const extrasHint = `Extras à ajouter sur chaque pizza : de ${roundPrice(Math.min(...extraPrices))} à ${roundPrice(Math.max(...extraPrices))}`;
+// Sous la carte (accueil et /carte) : affichage des prix et information sur les allergènes.
+export const menuNote = 'Prix TTC, en euros. Allergènes : la liste est disponible en boutique, demandez-nous.';
+
 export const startingPrice = Math.min(...pizzas.items.map((i) => i.price));
 
 // Identifiant stable d'un article pour le panier : « pizzas-original-pepperoni ».

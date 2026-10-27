@@ -70,6 +70,8 @@ export const site = {
   description:
     'Slice, pizzeria dans le centre-ville d’Avignon : trois boutiques, des pizzas de 40 cm à emporter. Margherita, Original Pepperoni, Chicken Ranch, Ooh Honey…',
   email: 'sliceavignonpizza@gmail.com',
+  // Image d'aperçu des partages (WhatsApp, Facebook…) : JPG 1200 × 630 dans public/. PROVISOIRE (tirée de pizza-1.jpg).
+  ogImage: '/og-image.jpg',
   // Réseaux : icônes de l'en-tête, menu mobile et pied de page. Un réseau sans `href` n'est pas affiché.
   socials: [
     { label: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/sliceavignonpizza/' },

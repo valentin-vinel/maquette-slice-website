@@ -10,9 +10,10 @@ import MenuItem from '../components/MenuItem.astro';
 import Media from '../components/Media.astro';
 import Extras from '../components/Extras.astro';
 import PizzaOfTheMonth from '../components/PizzaOfTheMonth.astro';
+import StructuredData from '../components/StructuredData.astro';
 import { shops } from '../data/site';
 import { reviews, profiles, overallRating, countLabel, roundedCount } from '../data/reviews';
-import { pizzas, startingPrice, itemId, extrasHint } from '../data/menu';
+import { pizzas, startingPrice, itemId, extrasHint, menuNote } from '../data/menu';
 import { heroMedia, gallery } from '../data/media';
 
 const fromPrice = new Intl.NumberFormat('fr-FR', {
@@ -25,6 +26,7 @@ const half = Math.ceil(pizzas.items.length / 2);
 ---
 
 <Layout>
+  <StructuredData slot="head" />
   <section class="devanture">
     <div class="container">
       <div class="devanture__grid">
@@ -84,6 +86,7 @@ const half = Math.ceil(pizzas.items.length / 2);
         </div>
         <Extras />
       </Frame>
+      <p class="menu-note">{menuNote}</p>
 
       <p class="carte__more">
         <a href="/carte" class="link-arrow">Desserts et boissons : toute la carte <Icon name="arrow" /></a>

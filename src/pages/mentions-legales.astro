@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { legal } from '../data/legal';
+import { site } from '../data/site';
+
+// Un champ vide de legal.ts s'affiche comme « À compléter : … », pour qu'il ne passe pas inaperçu.
+const todo = (value: string, what: string) => value || `À compléter : ${what}`;
+const isTodo = (value: string) => !value;
+---
+
+<Layout title="Mentions légales" description={`Mentions légales et politique de confidentialité du site ${site.name}.`}>
+  <section class="section">
+    <div class="container legal">
+      <h1>Mentions légales</h1>
+      {legal.updated && <p class="updated">Dernière mise à jour : {legal.updated}</p>}
+
+      <h2>Éditeur du site</h2>
+      <dl>
+        <dt>Raison sociale</dt>
+        <dd class:list={{ todo: isTodo(legal.company) }}>{todo(legal.company, 'raison sociale')}</dd>
+        <dt>Forme juridique</dt>
+        <dd class:list={{ todo: isTodo(legal.legalForm) }}>{todo(legal.legalForm, 'forme juridique')}</dd>
+        <dt>Capital social</dt>
+        <dd class:list={{ todo: isTodo(legal.capital) }}>{todo(legal.capital, 'capital')}</dd>
+        <dt>Siège social</dt>
+        <dd class:list={{ todo: isTodo(legal.address) }}>{todo(legal.address, 'adresse du siège')}</dd>
+        <dt>SIRET</dt>
+        <dd class:list={{ todo: isTodo(legal.siret) }}>{todo(legal.siret, 'SIRET')}</dd>
+        <dt>RCS</dt>
+        <dd class:list={{ todo: isTodo(legal.rcs) }}>{todo(legal.rcs, 'RCS')}</dd>
+        <dt>TVA intracommunautaire</dt>
+        <dd class:list={{ todo: isTodo(legal.vat) }}>{todo(legal.vat, 'n° de TVA')}</dd>
+        <dt>Email</dt>
+        <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+        <dt>Directeur de la publication</dt>
+        <dd class:list={{ todo: isTodo(legal.publisher) }}>{todo(legal.publisher, 'prénom et nom')}</dd>
+      </dl>
+
+      <h2>Hébergement</h2>
+      <dl>
+        <dt>Hébergeur</dt>
+        <dd class:list={{ todo: isTodo(legal.host.name) }}>{todo(legal.host.name, 'nom de l’hébergeur')}</dd>
+        <dt>Adresse</dt>
+        <dd class:list={{ todo: isTodo(legal.host.address) }}>{todo(legal.host.address, 'adresse de l’hébergeur')}</dd>
+        <dt>Contact</dt>
+        <dd class:list={{ todo: isTodo(legal.host.contact) }}>
+          {legal.host.contact ? <a href={`mailto:${legal.host.contact}`}>{legal.host.contact}</a> : todo('', 'contact de l’hébergeur')}
+        </dd>
+        <dt>Site</dt>
+        <dd><a href={legal.host.website} target="_blank" rel="noopener noreferrer">{legal.host.website.replace('https://', '')}</a></dd>
+      </dl>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        Le nom {site.name}, le logo, les textes et les photos de ce site appartiennent à {site.name} ou sont utilisés
+        avec l’accord de leurs auteurs. Toute reproduction, même partielle, sans autorisation écrite est interdite.
+      </p>
+      <p>
+        Crédits photos : <span class:list={{ todo: isTodo(legal.photos) }}>{todo(legal.photos, 'crédit photo')}</span>.
+        Les avis clients sont extraits des fiches Google des boutiques et reproduits tels quels.
+      </p>
+
+      <h2 id="confidentialite">Données personnelles et cookies</h2>
+      <p>
+        Ce site ne collecte aucune donnée personnelle : il n’a ni formulaire, ni compte, ni outil de mesure d’audience,
+        ni publicité. Il ne dépose aucun cookie.
+      </p>
+      <p>
+        La liste « Ma commande » que vous composez sur la carte est enregistrée uniquement dans votre navigateur
+        (stockage local), pour que vous la retrouviez en appelant une boutique. Elle ne nous est jamais envoyée. Vous
+        pouvez la vider à tout moment depuis la commande, ou en effaçant les données de navigation de ce site.
+      </p>
+      <p>
+        Les liens vers Google Maps, Instagram et Facebook ouvrent ces services, qui appliquent leur propre politique de
+        confidentialité. Si vous nous écrivez par email, votre message sert uniquement à vous répondre et n’est pas
+        conservé au-delà de ce qui est nécessaire.
+      </p>
+      <p>
+        Conformément au RGPD, vous disposez d’un droit d’accès, de rectification et de suppression de vos données :
+        écrivez-nous à <a href={`mailto:${site.email}`}>{site.email}</a>. Vous pouvez aussi adresser une réclamation à
+        la <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">CNIL</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal {
+    max-width: 46rem;
+  }
+
+  .updated {
+    color: var(--color-muted);
+  }
+
+  h2 {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+  }
+
+  #confidentialite {
+    scroll-margin-top: 8rem;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem 1.5rem;
+    margin: 0;
+  }
+
+  dt {
+    font-weight: 600;
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  a {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .todo {
+    color: var(--color-primary);
+    font-style: italic;
+  }
+
+  @media (max-width: 560px) {
+    dl {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+
+    dd + dt {
+      margin-top: 0.6rem;
+    }
+  }
+</style>

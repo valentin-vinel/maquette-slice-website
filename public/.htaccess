@@ -1,0 +1,10 @@
+# Hostinger (Apache). Remplace le .htaccess de WordPress à la mise en ligne.
+
+# Page d'erreur du site plutôt que celle d'Hostinger.
+ErrorDocument 404 /404.html
+
+# Anciennes adresses du site WordPress, déjà indexées par Google.
+Redirect 301 /nos-pizzas /carte/
+Redirect 301 /sitemap_index.xml /sitemap-index.xml
+Redirect 301 /page-sitemap.xml /sitemap-index.xml
+Redirect 301 /wp-sitemap.xml /sitemap-index.xml

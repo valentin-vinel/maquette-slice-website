@@ -262,6 +262,14 @@ img {
   color: var(--color-primary-dark);
 }
 
+/* « Prix TTC… allergènes » sous la carte (accueil, carte). */
+.menu-note {
+  margin: 1.25rem 0 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+
 /* Pizza : un « + » plein qui ouvre le configurateur, précédé du nombre déjà commandé. */
 .qty--pizza .qty__btn {
   background: var(--color-primary);

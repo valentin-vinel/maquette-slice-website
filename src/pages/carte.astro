@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 import MenuItem from '../components/MenuItem.astro';
 import Extras from '../components/Extras.astro';
 import PizzaOfTheMonth from '../components/PizzaOfTheMonth.astro';
-import { menu, itemId, itemLabel, extrasHint } from '../data/menu';
+import { menu, itemId, itemLabel, extrasHint, menuNote } from '../data/menu';
 
 const [pizzas, ...others] = menu;
 const half = Math.ceil(pizzas.items.length / 2);
@@ -60,6 +60,8 @@ const half = Math.ceil(pizzas.items.length / 2);
         ))
       }
     </div>
+
+    <p class="menu-note">{menuNote}</p>
 
     <p class="cta">
       <a href="/contact#boutiques" class="btn"><Icon name="phone" />Commander par téléphone</a>

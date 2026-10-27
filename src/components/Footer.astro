@@ -46,6 +46,7 @@ const year = new Date().getFullYear();
 
   <div class="container footer__bottom">
     <p>© {year} {site.name} · {site.tagline}</p>
+    <p><a href="/mentions-legales">Mentions légales</a> · <a href="/mentions-legales#confidentialite">Confidentialité</a></p>
   </div>
 </footer>
 
@@ -117,6 +118,13 @@ const year = new Date().getFullYear();
     border-top: 1px solid rgb(246 241 222 / 0.15);
     font-size: 0.875rem;
     color: rgb(246 241 222 / 0.7);
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
   }
 
   .footer__bottom p {
