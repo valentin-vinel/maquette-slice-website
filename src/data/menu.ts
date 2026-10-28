@@ -47,7 +47,7 @@ export const menu: MenuSection[] = [
   {
     id: 'boissons',
     title: 'Boissons',
-    subtitle: 'Coca-Cola, Coca-Cola Zero, Ice Tea, Sprite, Oasis Tropical, Dr Pepper, eau, Perrier',
+    subtitle: 'Coca-Cola, Coca-Cola Zero, Ice Tea, Sprite, Oasis Tropical, Orangina, Schweppes Agrumes, eau, Perrier',
     items: [
       { name: '33 cl', price: 2 },
       { name: '1,5 L', price: 3.5 },
@@ -56,7 +56,7 @@ export const menu: MenuSection[] = [
 ];
 
 // Pizza du mois (accueil sous la devanture, et en tête de /carte), à mettre à jour chaque mois.
-// Tant que `item` est vide, un emplacement « à fournir » s'affiche. Elle se commande comme les autres pizzas
+// Tant que `item` est vide, le bloc n'est pas affiché. Elle se commande comme les autres pizzas
 // (configurateur + extras). Photo : déposer le fichier dans src/assets/menu/ et renseigner `photo`.
 export const pizzaOfTheMonth: { month: string; item?: MenuItem } = {
   month: '', // ex. « Novembre »

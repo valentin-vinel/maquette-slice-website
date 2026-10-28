@@ -5,7 +5,7 @@ import Icon from '../components/Icon.astro';
 import MenuItem from '../components/MenuItem.astro';
 import Extras from '../components/Extras.astro';
 import PizzaOfTheMonth from '../components/PizzaOfTheMonth.astro';
-import { menu, itemId, itemLabel, extrasHint, menuNote } from '../data/menu';
+import { menu, itemId, itemLabel, extrasHint, menuNote, pizzaOfTheMonth } from '../data/menu';
 
 const [pizzas, ...others] = menu;
 const half = Math.ceil(pizzas.items.length / 2);
@@ -23,9 +23,13 @@ const half = Math.ceil(pizzas.items.length / 2);
   </section>
 
   <div class="container">
-    <div class="mois-carte">
-      <PizzaOfTheMonth />
-    </div>
+    {
+      pizzaOfTheMonth.item && (
+        <div class="mois-carte">
+          <PizzaOfTheMonth />
+        </div>
+      )
+    }
 
     <Frame class="board">
       <h2 slot="title" id={`${pizzas.id}-title`}>{pizzas.title}</h2>

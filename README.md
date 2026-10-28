@@ -69,12 +69,10 @@ design-source/    fichiers du client (logo .ai, cartes PDF 2026), non publiés
 
 ## À fournir par le client
 
-- Les mentions légales (`src/data/legal.ts`) : raison sociale, SIRET, RCS, TVA, directeur de la publication, hébergeur
 - L'image de partage `public/og-image.jpg` (1200 × 630, provisoire)
-- La pizza du mois (`pizzaOfTheMonth` dans `menu.ts`)
-
+- La pizza du mois (`pizzaOfTheMonth` dans `menu.ts`) : Rémi fait des essais
+- La confirmation des horaires (un seul horaire commun aux boutiques pour l'instant)
 - Le téléphone de la boutique Henri Fabre (fermée temporairement pour l'instant)
-- Les photos définitives : devanture, four, comptoir (les photos actuelles sont provisoires)
 
 ## Documentation
 

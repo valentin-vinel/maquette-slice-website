@@ -22,7 +22,7 @@ export const heroMedia: MediaSlot = {
     'Plan serré : une pizza tout juste sortie du four, sur la pelle ou le comptoir, fromage encore fondant. Sans texte ni sticker à l’image.',
   specs: 'JPG · vertical 4:5 · 1600 × 2000 px idéalement (1080 × 1350 min.)',
   alt: 'Une pizza garnie de sauce tomate et de mozzarella, prête à être enfournée.',
-  src: '/medias/pizza-1.jpg', // provisoire
+  src: '/medias/pizza-1.jpg', // validée par le client (2026-10-28)
 };
 
 export const gallery: MediaSlot[] = [
@@ -32,7 +32,7 @@ export const gallery: MediaSlot[] = [
     brief: 'Depuis la rue, en journée : l’enseigne Slice et l’entrée, pour qu’on reconnaisse la boutique en arrivant.',
     specs: 'JPG · vertical 4:5 · 1600 px de large min.',
     alt: 'Des cartons à pizza Slice empilés au soleil, au bord de l’eau.',
-    src: '/medias/carton-pizza.jpg', // provisoire, à la place de la devanture
+    src: '/medias/carton-pizza.jpg', // validée par le client (2026-10-28), à la place de la devanture
   },
   {
     kind: 'photo',
@@ -40,7 +40,7 @@ export const gallery: MediaSlot[] = [
     brief: 'Le four en service, une pizza en cuisson, si possible avec le pizzaiolo à l’œuvre.',
     specs: 'JPG · vertical 4:5 · 1600 px de large min.',
     alt: 'La pâte à pizza étirée à la main au-dessus du plan de travail fariné.',
-    src: '/medias/pate-pizza.jpg', // provisoire, à la place du four
+    src: '/medias/pate-pizza.jpg', // validée par le client (2026-10-28), à la place du four
   },
   {
     kind: 'photo',
@@ -48,7 +48,7 @@ export const gallery: MediaSlot[] = [
     brief: 'Vue de dessus, une pizza de 40 cm entière sur le comptoir (ex. Original Pepperoni), lumière naturelle.',
     specs: 'JPG · vertical 4:5 · 1600 px de large min.',
     alt: 'Un filet de sauce versé sur une pizza blanche au jambon cru.',
-    src: '/medias/pizza-sauce.jpg', // provisoire
+    src: '/medias/pizza-sauce.jpg', // validée par le client (2026-10-28)
   },
   {
     kind: 'photo',
@@ -56,6 +56,6 @@ export const gallery: MediaSlot[] = [
     brief: 'Le comptoir avec la carte affichée au mur, ou une pizza remise à un client (avec son accord).',
     specs: 'JPG · vertical 4:5 · 1600 px de large min.',
     alt: 'Des pizzas présentées sur le comptoir de Slice.',
-    src: '/medias/presentoir.jpg', // provisoire
+    src: '/medias/presentoir.jpg', // validée par le client (2026-10-28)
   },
 ];

@@ -1,5 +1,5 @@
 ---
-// « La pizza du mois » (accueil et /carte) : pizzaOfTheMonth de menu.ts, ou son emplacement « à fournir ».
+// « La pizza du mois » (accueil et /carte) : pizzaOfTheMonth de menu.ts. Les pages ne l'affichent que si `item` est renseigné.
 import MenuItem from './MenuItem.astro';
 import { pizzaOfTheMonth, pizzas, itemId } from '../data/menu';
 
@@ -11,30 +11,21 @@ const { class: className } = Astro.props;
 const { month, item } = pizzaOfTheMonth;
 ---
 
-<section class:list={['mois', className]} aria-labelledby="mois-title">
-  <div class="mois__head">
-    <h2 id="mois-title">La pizza du mois</h2>
-    {month && <p class="mois__month">{month}</p>}
-    <p class="mois__note">En plus de la carte, le temps d’un mois.</p>
-  </div>
+{
+  item && (
+    <section class:list={['mois', className]} aria-labelledby="mois-title">
+      <div class="mois__head">
+        <h2 id="mois-title">La pizza du mois</h2>
+        {month && <p class="mois__month">{month}</p>}
+        <p class="mois__note">En plus de la carte, le temps d’un mois.</p>
+      </div>
 
-  <div class="mois__item">
-    {
-      item ? (
+      <div class="mois__item">
         <MenuItem item={item} id={itemId(pizzas.id, item)} configurable />
-      ) : (
-        <div class="placeholder">
-          <span class="placeholder__tag">Pizza du mois à fournir</span>
-          <p>Le nom, les ingrédients, le prix de la pizza entière (40 cm), le mois concerné, et une photo.</p>
-          <p class="placeholder__specs">
-            Photo comme les autres pizzas : vue de dessus, sur la pelle, main à gauche · à renseigner dans
-            src/data/menu.ts
-          </p>
-        </div>
-      )
-    }
-  </div>
-</section>
+      </div>
+    </section>
+  )
+}
 
 <style>
   .mois {
@@ -65,37 +56,6 @@ const { month, item } = pizzaOfTheMonth;
   .mois__note {
     margin: 1rem 0 0;
     font-size: 1.1rem;
-    color: var(--color-muted);
-  }
-
-  .placeholder {
-    display: grid;
-    gap: 0.75rem;
-    padding: clamp(1.25rem, 3vw, 1.75rem);
-    border: 2px dashed var(--color-primary);
-    border-radius: var(--radius);
-    background: var(--color-bg);
-  }
-
-  .placeholder p {
-    margin: 0;
-  }
-
-  .placeholder__tag {
-    justify-self: start;
-    padding: 0.3rem 0.7rem 0.2rem;
-    border-radius: var(--radius-sm);
-    background: var(--color-primary);
-    color: var(--color-on-primary);
-    font-family: var(--font-display);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .placeholder__specs {
-    font-size: 0.9rem;
     color: var(--color-muted);
   }
 

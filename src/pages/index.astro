@@ -13,7 +13,7 @@ import PizzaOfTheMonth from '../components/PizzaOfTheMonth.astro';
 import StructuredData from '../components/StructuredData.astro';
 import { shops } from '../data/site';
 import { reviews, profiles, overallRating, countLabel, roundedCount } from '../data/reviews';
-import { pizzas, startingPrice, itemId, extrasHint, menuNote } from '../data/menu';
+import { pizzas, startingPrice, itemId, extrasHint, menuNote, pizzaOfTheMonth } from '../data/menu';
 import { heroMedia, gallery } from '../data/media';
 
 const fromPrice = new Intl.NumberFormat('fr-FR', {
@@ -69,9 +69,13 @@ const half = Math.ceil(pizzas.items.length / 2);
     </div>
   </section>
 
-  <div class="container mois-home">
-    <PizzaOfTheMonth />
-  </div>
+  {
+    pizzaOfTheMonth.item && (
+      <div class="container mois-home">
+        <PizzaOfTheMonth />
+      </div>
+    )
+  }
 
   <section class="section carte" aria-labelledby="carte-title">
     <div class="container">
