@@ -58,9 +58,20 @@ export const menu: MenuSection[] = [
 // Pizza du mois (accueil sous la devanture, et en tête de /carte), à mettre à jour chaque mois.
 // Tant que `item` est vide, le bloc n'est pas affiché. Elle se commande comme les autres pizzas
 // (configurateur + extras). Photo : déposer le fichier dans src/assets/menu/ et renseigner `photo`.
-export const pizzaOfTheMonth: { month: string; item?: MenuItem } = {
-  month: '', // ex. « Novembre »
-  item: undefined, // ex. { name: '…', description: '…', price: 15.9, photo: '…' }
+// `photoAlt` : texte alternatif de la photo. `detail` (optionnelle) : seconde photo, seulement sur l'accueil.
+export const pizzaOfTheMonth: { month: string; item?: MenuItem; photoAlt?: string; detail?: { photo: string; alt: string } } = {
+  month: 'Novembre',
+  item: {
+    name: 'Pizza du mois',
+    description: 'Crème de potiron, reblochon AOP, oignons rôtis, mozzarella, jambon cru fumé. Après cuisson : noix et miel pimenté maison',
+    price: 16,
+    photo: 'pizza-novembre',
+  },
+  photoAlt: 'La pizza du mois tenue sur une pelle, vue de dessus.',
+  detail: {
+    photo: 'pizza-novembre-detail',
+    alt: 'Gros plan sur la pizza du mois : jambon cru fumé, noix et filet de miel pimenté sur la crème de potiron.',
+  },
 };
 
 // Extras à ajouter sur une pizza (configurateur du panier). Ils ne sont pas une section de la carte.

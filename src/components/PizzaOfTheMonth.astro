@@ -1,27 +1,68 @@
 ---
 // « La pizza du mois » (accueil et /carte) : pizzaOfTheMonth de menu.ts. Les pages ne l'affichent que si `item` est renseigné.
+// Aplat bordeaux, texte à gauche, photos à droite. Sur la ligne de prix, le mois remplace le nom,
+// qui répéterait le titre ; le panier garde le vrai nom (identifiant et libellé tirés de `item`).
+import { Picture } from 'astro:assets';
 import MenuItem from './MenuItem.astro';
 import { pizzaOfTheMonth, pizzas, itemId } from '../data/menu';
 
+const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/menu/*.jpg', { eager: true });
+const photoOf = (name: string) => {
+  const photo = photos[`../assets/menu/${name}.jpg`]?.default;
+  if (!photo) throw new Error(`Photo introuvable : src/assets/menu/${name}.jpg (pizza du mois)`);
+  return photo;
+};
+
 interface Props {
   class?: string;
+  showDetail?: boolean; // accueil : ajoute la seconde photo (`detail` de pizzaOfTheMonth)
 }
 
-const { class: className } = Astro.props;
-const { month, item } = pizzaOfTheMonth;
+const { class: className, showDetail = false } = Astro.props;
+const { month, item, photoAlt = '' } = pizzaOfTheMonth;
+const mainPhoto = item?.photo ? photoOf(item.photo) : undefined;
+const detail = showDetail ? pizzaOfTheMonth.detail : undefined;
+const detailPhoto = detail && photoOf(detail.photo);
+const line = item && { ...item, name: month || item.name, photo: undefined };
 ---
 
 {
-  item && (
-    <section class:list={['mois', className]} aria-labelledby="mois-title">
+  item && line && (
+    <section class:list={['mois', { 'mois--detail': detailPhoto, 'mois--no-photo': !mainPhoto }, className]} aria-labelledby="mois-title">
       <div class="mois__head">
         <h2 id="mois-title">La pizza du mois</h2>
-        {month && <p class="mois__month">{month}</p>}
         <p class="mois__note">En plus de la carte, le temps d’un mois.</p>
       </div>
 
+      {
+        mainPhoto && (
+          <div class="mois__media">
+            <Picture
+              src={mainPhoto}
+              alt={photoAlt}
+              class="mois__img"
+              pictureAttributes={{ class: 'mois__main' }}
+              formats={['avif', 'webp']}
+              widths={[360, 560, 800, 1100]}
+              sizes="(max-width: 860px) calc(100vw - 5rem), 620px"
+            />
+            {detailPhoto && (
+              <Picture
+                src={detailPhoto}
+                alt={detail!.alt}
+                class="mois__img"
+                pictureAttributes={{ class: 'mois__detail' }}
+                formats={['avif', 'webp']}
+                widths={[360, 560, 800]}
+                sizes="(max-width: 860px) 36vw, 220px"
+              />
+            )}
+          </div>
+        )
+      }
+
       <div class="mois__item">
-        <MenuItem item={item} id={itemId(pizzas.id, item)} configurable />
+        <MenuItem item={line} id={itemId(pizzas.id, item)} label={item.name} configurable />
       </div>
     </section>
   )
@@ -29,39 +70,152 @@ const { month, item } = pizzaOfTheMonth;
 
 <style>
   .mois {
+    --pad: clamp(1.25rem, 3vw, 2.25rem);
     display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
-    align-items: center;
-    gap: clamp(1.5rem, 5vw, 4rem);
-    padding: clamp(1.5rem, 4vw, 3rem);
-    border: 3px solid var(--color-primary);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+    grid-template-areas:
+      'head media'
+      'item media';
+    align-content: center;
+    gap: 1rem clamp(1.5rem, 4vw, 3rem);
+    padding: var(--pad);
     border-radius: var(--radius);
-    background: var(--color-surface);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+  }
+
+  .mois--no-photo {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'head'
+      'item';
+  }
+
+  /* La seconde photo dépasse sous l'aplat : on lui garde la place. */
+  .mois--detail {
+    margin-bottom: 2rem;
+  }
+
+  .mois__head {
+    grid-area: head;
+    align-self: end;
   }
 
   .mois__head h2 {
     margin: 0;
-    color: var(--color-primary);
-  }
-
-  .mois__month {
-    margin: 0.75rem 0 0;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(0.95rem, 2vw, 1.3rem);
-    letter-spacing: 0.38em;
-    text-transform: uppercase;
+    color: var(--color-on-primary);
   }
 
   .mois__note {
-    margin: 1rem 0 0;
+    margin: 0.6rem 0 0;
     font-size: 1.1rem;
-    color: var(--color-muted);
+    color: var(--color-on-primary-muted);
+  }
+
+  .mois__media {
+    grid-area: media;
+    position: relative;
+    align-self: center;
+  }
+
+  /* Seule (/carte), la photo reste contenue pour que le bloc garde une hauteur modeste. */
+  .mois :global(.mois__main) {
+    display: block;
+    width: 100%;
+    max-width: 30rem;
+    margin-inline: auto 0;
+  }
+
+  /* Avec la seconde photo : 72 % + 36 %, soit un chevauchement sur le bord de la photo principale. */
+  .mois--detail :global(.mois__main) {
+    width: 72%;
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .mois :global(.mois__detail) {
+    position: absolute;
+    right: 0;
+    bottom: calc(-1 * (var(--pad) + 1rem));
+    width: 36%;
+    border: 5px solid var(--color-on-primary);
+    border-radius: var(--radius);
+  }
+
+  .mois :global(.mois__img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+  }
+
+  .mois__item {
+    grid-area: item;
+    align-self: start;
+  }
+
+  /* MenuItem sur l'aplat : les encres s'inversent. */
+  .mois__item :global(.item) {
+    padding-block: 0;
+  }
+
+  .mois__item :global(h3),
+  .mois__item :global(.item__price) {
+    color: var(--color-on-primary);
+  }
+
+  .mois__item :global(p) {
+    color: var(--color-on-primary-muted);
+  }
+
+  .mois__item :global(.item__dots) {
+    border-color: var(--color-on-primary);
+    opacity: 0.6;
+  }
+
+  .mois__item :global(.qty__count) {
+    color: var(--color-on-primary);
+  }
+
+  .mois__item :global(.qty__btn) {
+    border-color: var(--color-on-primary);
+    background: var(--color-on-primary);
+    color: var(--color-primary);
+  }
+
+  .mois__item :global(.qty__btn:hover) {
+    border-color: var(--color-on-primary-muted);
+    background: var(--color-on-primary-muted);
+    color: var(--color-primary);
+  }
+
+  .mois__item :global(.qty__btn:focus-visible) {
+    outline-color: var(--color-on-primary);
   }
 
   @media (max-width: 860px) {
     .mois {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        'head'
+        'media'
+        'item';
+    }
+
+    .mois--detail {
+      margin-bottom: 0;
+    }
+
+    .mois--detail .mois__media {
+      margin-bottom: 1.75rem;
+    }
+
+    .mois :global(.mois__main) {
+      max-width: none;
+    }
+
+    .mois :global(.mois__detail) {
+      bottom: -1.5rem;
     }
   }
 </style>

@@ -70,7 +70,6 @@ design-source/    fichiers du client (logo .ai, cartes PDF 2026), non publiés
 ## À fournir par le client
 
 - L'image de partage `public/og-image.jpg` (1200 × 630, provisoire)
-- La pizza du mois (`pizzaOfTheMonth` dans `menu.ts`) : Rémi fait des essais
 - La confirmation des horaires (un seul horaire commun aux boutiques pour l'instant)
 - Le téléphone de la boutique Henri Fabre (fermée temporairement pour l'instant)
 
