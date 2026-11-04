@@ -19,9 +19,19 @@ export type Shop = {
   closed?: boolean; // fermée temporairement : ni horaires, ni appel, statut « Fermée temporairement »
 };
 
-// Horaires communs aux 3 boutiques. Si une boutique a des horaires différents,
-// lui donner sa propre liste dans `shops` ci-dessous.
-const sharedHours: Hours = [
+// Horaires d'hiver, propres à chaque boutique.
+const carnotHours: Hours = [
+  { label: 'Lundi – Samedi', days: [1, 2, 3, 4, 5, 6], slots: [['11:30', '14:30'], ['17:30', '21:30']] },
+  { label: 'Dimanche', days: [0], slots: [] },
+];
+
+const republiqueHours: Hours = [
+  { label: 'Lundi – Samedi', days: [1, 2, 3, 4, 5, 6], slots: [['11:30', '14:30'], ['16:00', '21:30']] },
+  { label: 'Dimanche', days: [0], slots: [] },
+];
+
+// Henri Fabre : anciens horaires, non affichés tant que la boutique est fermée. À revoir à la réouverture.
+const henriFabreHours: Hours = [
   { label: 'Lundi – Vendredi', days: [1, 2, 3, 4, 5], slots: [['11:30', '14:30'], ['18:30', '22:30']] },
   { label: 'Samedi', days: [6], slots: [['18:30', '22:30']] },
   { label: 'Dimanche', days: [0], slots: [] },
@@ -38,7 +48,7 @@ export const shops: Shop[] = [
     city: '84000 Avignon',
     phone: '04 86 34 14 26',
     mapsUrl: maps('45 rue Carnot'),
-    hours: sharedHours,
+    hours: carnotHours,
   },
   {
     id: 'republique',
@@ -47,7 +57,7 @@ export const shops: Shop[] = [
     city: '84000 Avignon',
     phone: '04 90 26 54 92',
     mapsUrl: maps('26 rue de la République'),
-    hours: sharedHours,
+    hours: republiqueHours,
   },
   {
     id: 'henri-fabre',
@@ -56,7 +66,7 @@ export const shops: Shop[] = [
     city: '84000 Avignon',
     phone: '04 90 00 00 03', // À COMPLÉTER : numéro d'Henri Fabre
     mapsUrl: maps('10 rue Henri Fabre'),
-    hours: sharedHours,
+    hours: henriFabreHours,
     closed: true, // fermée temporairement ; retirer cette ligne à la réouverture
   },
 ];

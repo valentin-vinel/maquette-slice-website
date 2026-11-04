@@ -34,7 +34,7 @@ Generous **40 cm pizzas** with an American/NY-pizzeria menu (Original Pepperoni,
 - Static Astro site: home (`/`), menu (`/carte`), contact (`/contact`), legal notice (`/mentions-legales`), plus 404.
 - All business data lives in `src/data/` (`site.ts`, `menu.ts`, `about.ts`, `reviews.ts`, `media.ts`, `legal.ts`); pages render from it. `menu.ts` holds the real 2026 menu, whole pizzas only (40 cm), by the client's choice; slice prices are not shown on the site, and the site does not mention buying by the slice (client's choice, 2026-10-15). The extras are listed with their prices in a burgundy block under the pizzas (like the print menu) and added to a pizza through its « + » configurator.
 - All user-facing copy is in **French**; English menu translations exist in the source material if wanted.
-- Still to come from the client: Henri Fabre's phone (shop temporarily closed), confirmation of the opening hours (one shared schedule for now).
+- Still to come from the client: Henri Fabre's phone and hours (shop temporarily closed). Carnot and République have their own winter hours (client, 2026-11-04); summer hours are not on hand.
 - Undecided: whether the site should be bilingual.
 
 ## Brand Commitments

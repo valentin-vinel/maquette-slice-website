@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Static showcase site ("site vitrine") for **Slice**, a real pizzeria in Avignon (three city-centre shops, 40 cm pizzas, takeaway only: no dine-in, no delivery). Built with Astro 7 (output: `static`), plain scoped CSS, no UI framework, no Tailwind. All user-facing content is in **French** (`<html lang="fr">`) — keep new copy in French. The menu and prices are real (from the client's 2026 print menus in `design-source/`); shop addresses, the Carnot and République phones, the email, socials and legal details are real; Henri Fabre's phone is a placeholder (the shop is temporarily closed) and the shared opening hours are still to be confirmed. See `PRODUCT.md` for product truth and `DESIGN.md` for the visual system.
+Static showcase site ("site vitrine") for **Slice**, a real pizzeria in Avignon (three city-centre shops, 40 cm pizzas, takeaway only: no dine-in, no delivery). Built with Astro 7 (output: `static`), plain scoped CSS, no UI framework, no Tailwind. All user-facing content is in **French** (`<html lang="fr">`) — keep new copy in French. The menu and prices are real (from the client's 2026 print menus in `design-source/`); shop addresses, the Carnot and République phones, the email, socials and legal details are real; Henri Fabre's phone and hours are placeholders (the shop is temporarily closed); Carnot and République have their own winter hours. See `PRODUCT.md` for product truth and `DESIGN.md` for the visual system.
 
 ## Commands
 

@@ -48,7 +48,7 @@ Tout le contenu est dans `src/data/`. Les pages ne contiennent pas de texte mét
 Quelques cas courants :
 
 - **Fermer temporairement une boutique** : ajouter `closed: true` à la boutique dans `site.ts`. Pour la rouvrir, retirer la ligne.
-- **Changer les horaires** : `sharedHours` dans `site.ts` (communs aux trois boutiques), ou une liste propre à une boutique.
+- **Changer les horaires** : la liste de la boutique dans `site.ts` (`carnotHours`, `republiqueHours`, `henriFabreHours`). Ce sont les horaires d'hiver pour Carnot et République.
 - **Ajouter une photo** : déposer le fichier dans `public/medias/` et renseigner `src` dans `media.ts` (ou `about.ts`). Tant que `src` est vide, un emplacement « à fournir » s'affiche, avec la consigne de prise de vue.
 - **Ajouter un avis** : uniquement de vrais avis Google, recopiés tels quels, dans `reviews.ts`.
 
@@ -70,7 +70,7 @@ design-source/    fichiers du client (logo .ai, cartes PDF 2026), non publiés
 ## À fournir par le client
 
 - L'image de partage `public/og-image.jpg` (1200 × 630, provisoire)
-- La confirmation des horaires (un seul horaire commun aux boutiques pour l'instant)
+- Les horaires d'Henri Fabre à sa réouverture
 - Le téléphone de la boutique Henri Fabre (fermée temporairement pour l'instant)
 
 ## Documentation
